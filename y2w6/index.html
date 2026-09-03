@@ -191,7 +191,40 @@ body { margin: 0; background: var(--bg); color: var(--ink); font-family: "Noto S
 .ph-okada .cap { position: absolute; left: 0; bottom: 0; padding: 10px 16px; background: var(--panel); color: var(--panel-ink); display: flex; align-items: baseline; gap: 12px; }
 .ph-okada .cap b { font-family: "Barlow Condensed", "Avenir Next Condensed", sans-serif; font-weight: 800; font-size: 22px; letter-spacing: .04em; }
 .ph-okada .cap span { font-family: "Barlow", sans-serif; font-weight: 600; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--panel-tag); }
+
+
+/* decorative chips & cards */
+:root { --card-face: #FFFFFF; --card-ink: #111318; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --card-face: #1F2126; --card-ink: #F3F1EC; } }
+:root[data-theme="dark"] { --card-face: #1F2126; --card-ink: #F3F1EC; }
+.deco { position: absolute; pointer-events: none; z-index: 0; }
+.deco svg { display: block; overflow: visible; }
+.deco .chip-o { fill: var(--acc); } .deco .chip-k { fill: #111318; } .deco .chip-p { fill: var(--okada); }
+.deco .ring { fill: none; stroke: #FFFFFF; stroke-width: 7; stroke-dasharray: 11 9; }
+.deco .ring2 { fill: none; stroke: rgba(255,255,255,.55); stroke-width: 2; }
+.deco .card { fill: var(--card-face); stroke: var(--card-ink); stroke-width: 3; }
+.deco .s-k { fill: var(--card-ink); } .deco .s-o { fill: var(--acc); } .deco .s-p { fill: var(--okada); }
+.deco text { font-family: "Barlow Condensed", "Avenir Next Condensed", sans-serif; font-weight: 800; }
+.cd, .mf, .pg, .hd { position: relative; }
+.cd > *:not(.deco), .mf > *:not(.deco), .pg > *:not(.deco) { position: relative; z-index: 1; }
+.deco-cd { right: 0; top: 0; width: 340px; height: 190px; }
+.deco-mf { left: 0; bottom: -6px; width: 260px; height: 110px; }
+.deco-pg { right: 0; bottom: -8px; width: 200px; height: 96px; }
+@media (max-width: 980px) { .deco-cd { display: none; } }
+@media (max-width: 760px) { .deco-mf, .deco-pg { display: none; } }
 </style>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="chip" viewBox="0 0 100 100">
+    <circle cx="50" cy="50" r="48" class="chip-fill"/>
+    <circle cx="50" cy="50" r="40" class="ring"/>
+    <circle cx="50" cy="50" r="27" class="ring2"/>
+  </symbol>
+  <symbol id="spade" viewBox="0 0 100 100"><path d="M50 8 C50 8 12 42 12 60 a18 18 0 0 0 33 10 c-1 9 -5 15 -12 20 h34 c-7 -5 -11 -11 -12 -20 a18 18 0 0 0 33 -10 C88 42 50 8 50 8z"/></symbol>
+  <symbol id="heart" viewBox="0 0 100 100"><path d="M50 90 C20 66 8 52 8 34 a20 20 0 0 1 42 -8 a20 20 0 0 1 42 8 c0 18 -12 32 -42 56z"/></symbol>
+  <symbol id="diamond" viewBox="0 0 100 100"><path d="M50 6 L90 50 L50 94 L10 50z"/></symbol>
+  <symbol id="club" viewBox="0 0 100 100"><path d="M50 10 a17 17 0 0 1 14 27 a17 17 0 1 1 -8 30 c1 9 5 15 12 21 h-36 c7 -6 11 -12 12 -21 a17 17 0 1 1 -8 -30 A17 17 0 0 1 50 10z"/></symbol>
+</svg>
+
 <div class="wrap">
   <header class="hd" style="border-bottom-width:1px; padding-bottom:14px">
     <div>
@@ -207,6 +240,42 @@ body { margin: 0; background: var(--bg); color: var(--ink); font-family: "Noto S
   </header>
 
   <section class="cd">
+  <div class="deco deco-cd" aria-hidden="true"><svg viewBox="0 0 340 190" width="340" height="190">
+    
+    <g transform="translate(200 92) rotate(-14)">
+      <rect class="card" x="-44" y="-62" width="88" height="124" rx="9"/>
+      <text x="-34" y="-36" font-size="24" class="s-k" style="fill:currentColor">A</text>
+      <use href="#spade" x="-36" y="-32" width="16" height="16" class="s-k"/>
+      <use href="#spade" x="-22" y="-22" width="44" height="44" class="s-k"/>
+      <g transform="rotate(180)"><text x="-34" y="-36" font-size="24" class="s-k" style="fill:currentColor">A</text><use href="#spade" x="-36" y="-32" width="16" height="16" class="s-k"/></g>
+    </g>
+    
+    <g transform="translate(265 100) rotate(8)">
+      <rect class="card" x="-44" y="-62" width="88" height="124" rx="9"/>
+      <text x="-34" y="-36" font-size="24" class="s-o" style="fill:currentColor">9</text>
+      <use href="#heart" x="-36" y="-32" width="16" height="16" class="s-o"/>
+      <use href="#heart" x="-22" y="-22" width="44" height="44" class="s-o"/>
+      <g transform="rotate(180)"><text x="-34" y="-36" font-size="24" class="s-o" style="fill:currentColor">9</text><use href="#heart" x="-36" y="-32" width="16" height="16" class="s-o"/></g>
+    </g>
+    
+    <g transform="translate(72 128)">
+      <circle r="26" class="chip-o"/>
+      <circle r="21" class="ring"/>
+      <circle r="14" class="ring2"/>
+    </g>
+    
+    <g transform="translate(106 146)">
+      <circle r="26" class="chip-k"/>
+      <circle r="21" class="ring"/>
+      <circle r="14" class="ring2"/>
+    </g>
+    
+    <g transform="translate(44 158)">
+      <circle r="20" class="chip-p"/>
+      <circle r="16" class="ring"/>
+      <circle r="11" class="ring2"/>
+    </g>
+  </svg></div>
     <div class="lbl" id="lbl"><b>NH869 羽田</b> の出発まで</div>
     <div class="digits" id="digits">
       <div class="d"><b id="dd">--</b><span>日</span></div>
@@ -243,6 +312,34 @@ body { margin: 0; background: var(--bg); color: var(--ink); font-family: "Noto S
   </figure>
 
   <section class="mf">
+  <div class="deco deco-mf" aria-hidden="true"><svg viewBox="0 0 260 110" width="260" height="110">
+    
+    <g transform="translate(36 70)">
+      <circle r="26" class="chip-k"/>
+      <circle r="21" class="ring"/>
+      <circle r="14" class="ring2"/>
+    </g>
+    
+    <g transform="translate(74 82)">
+      <circle r="26" class="chip-o"/>
+      <circle r="21" class="ring"/>
+      <circle r="14" class="ring2"/>
+    </g>
+    
+    <g transform="translate(112 70)">
+      <circle r="26" class="chip-p"/>
+      <circle r="21" class="ring"/>
+      <circle r="14" class="ring2"/>
+    </g>
+    <g transform="translate(200 62) scale(.72)">
+    <g transform="translate(0 0) rotate(12)">
+      <rect class="card" x="-44" y="-62" width="88" height="124" rx="9"/>
+      <text x="-34" y="-36" font-size="24" class="s-p" style="fill:currentColor">8</text>
+      <use href="#diamond" x="-36" y="-32" width="16" height="16" class="s-p"/>
+      <use href="#diamond" x="-22" y="-22" width="44" height="44" class="s-p"/>
+      <g transform="rotate(180)"><text x="-34" y="-36" font-size="24" class="s-p" style="fill:currentColor">8</text><use href="#diamond" x="-36" y="-32" width="16" height="16" class="s-p"/></g>
+    </g></g>
+  </svg></div>
     <h2 class="h"><span class="n">5000</span>年間<br>成長し続けている産業がある</h2>
     <p class="lead">そして、AI時代では、これまでにないほど成長する。</p>
     <div class="ir"><b>2030</b><span>大阪 IR 開業予定<small>Osaka Integrated Resort</small></span></div>
@@ -255,6 +352,30 @@ body { margin: 0; background: var(--bg); color: var(--ink); font-family: "Noto S
   </section>
 
   <section class="pg">
+  <div class="deco deco-pg" aria-hidden="true"><svg viewBox="0 0 200 96" width="200" height="96">
+    <g transform="translate(90 56) scale(.62)">
+    <g transform="translate(0 0) rotate(-10)">
+      <rect class="card" x="-44" y="-62" width="88" height="124" rx="9"/>
+      <text x="-34" y="-36" font-size="24" class="s-k" style="fill:currentColor">K</text>
+      <use href="#club" x="-36" y="-32" width="16" height="16" class="s-k"/>
+      <use href="#club" x="-22" y="-22" width="44" height="44" class="s-k"/>
+      <g transform="rotate(180)"><text x="-34" y="-36" font-size="24" class="s-k" style="fill:currentColor">K</text><use href="#club" x="-36" y="-32" width="16" height="16" class="s-k"/></g>
+    </g></g>
+    <g transform="translate(138 54) scale(.62)">
+    <g transform="translate(0 0) rotate(9)">
+      <rect class="card" x="-44" y="-62" width="88" height="124" rx="9"/>
+      <text x="-34" y="-36" font-size="24" class="s-o" style="fill:currentColor">9</text>
+      <use href="#heart" x="-36" y="-32" width="16" height="16" class="s-o"/>
+      <use href="#heart" x="-22" y="-22" width="44" height="44" class="s-o"/>
+      <g transform="rotate(180)"><text x="-34" y="-36" font-size="24" class="s-o" style="fill:currentColor">9</text><use href="#heart" x="-36" y="-32" width="16" height="16" class="s-o"/></g>
+    </g></g>
+    
+    <g transform="translate(182 78)">
+      <circle r="16" class="chip-o"/>
+      <circle r="13" class="ring"/>
+      <circle r="9" class="ring2"/>
+    </g>
+  </svg></div>
     <div class="ph"><h2>研修の内容</h2><span class="tag">Program</span></div>
     <ol>
       <li><span class="n">1</span><b>カジノ業界の構造</b><small>Industry Structure</small></li>
