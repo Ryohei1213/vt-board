@@ -251,6 +251,9 @@ html, body { overflow-x: hidden; max-width: 100%; }
   .deco-mf svg, .deco-pg svg { width: 100%; height: 100%; }
   .deco-ph { width: 140px; height: 62px; margin: -38px 0 -4px auto; }
 }
+
+.hero .name { font-family: "Barlow Condensed", "Avenir Next Condensed", sans-serif; font-weight: 800; font-size: clamp(36px, 7vw, 56px); letter-spacing: .02em; line-height: 1; }
+.hero .name .dear { display: block; font-family: "Barlow", "Avenir Next", sans-serif; font-weight: 600; font-size: 13px; letter-spacing: .3em; text-transform: uppercase; color: var(--acc); margin-bottom: 8px; }
 </style>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="chip" viewBox="0 0 100 100">
@@ -267,9 +270,8 @@ html, body { overflow-x: hidden; max-width: 100%; }
 <div class="wrap">
   <header class="hd" style="border-bottom-width:1px; padding-bottom:14px">
     <div>
-      <span class="tag">Verion Tour — Personal Departure Board</span>
       <div class="hero" style="padding:0">
-        <div class="who"><div class="name">石川 昌孝<small>様</small></div><div class="state" id="state">Countdown to departure</div></div>
+        <div class="who"><div class="name"><span class="dear">Dear</span>Mr. Masataka Ishikawa</div></div>
       </div>
     </div>
     <div class="venue">
@@ -558,7 +560,7 @@ html, body { overflow-x: hidden; max-width: 100%; }
   var OUT_DEP=new Date('2026-09-11T09:15:00+09:00'), OUT_ARR=new Date('2026-09-11T13:05:00+08:00'), RET_DEP=new Date('2026-09-13T14:50:00+08:00'), RET_ARR=new Date('2026-09-13T20:20:00+09:00');
   var ISSUED=new Date('2026-09-03T00:00:00+09:00');
   var el=function(id){return document.getElementById(id);};
-  var dd=el('dd'),hh=el('hh'),mm=el('mm'),ss=el('ss'),lbl=el('lbl'),state=el('state'),fill=el('fill'),plane=el('plane'),digits=el('digits');
+  var dd=el('dd'),hh=el('hh'),mm=el('mm'),ss=el('ss'),lbl=el('lbl'),state=el('state')||{},fill=el('fill'),plane=el('plane'),digits=el('digits');
   function pad(n){return (n<10?'0':'')+n;}
   function show(target){ var t=Math.max(0,target-Date.now()); var d=Math.floor(t/864e5), h=Math.floor(t%864e5/36e5), m=Math.floor(t%36e5/6e4), s=Math.floor(t%6e4/1e3); dd.textContent=d; hh.textContent=pad(h); mm.textContent=pad(m); ss.textContent=pad(s); }
   function prog(a,b){ var p=(Date.now()-a)/(b-a); p=Math.max(0,Math.min(1,p)); fill.style.width=(p*100)+'%'; plane.style.left=(p*100)+'%'; }
