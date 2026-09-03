@@ -195,6 +195,7 @@ body { margin: 0; background: var(--bg); color: var(--ink); font-family: "Noto S
 
 
 
+
 /* decorative chips & cards */
 :root { --card-face: #FFFFFF; --card-ink: #111318; }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --card-face: #1F2126; --card-ink: #F3F1EC; } }
@@ -213,6 +214,29 @@ body { margin: 0; background: var(--bg); color: var(--ink); font-family: "Noto S
 .deco-mf { left: 0; bottom: -6px; width: 260px; height: 110px; }
 .deco-pg { right: 0; bottom: -8px; width: 200px; height: 96px; }
 body { overflow-x: clip; }
+/* motion */
+.deco .anim { transform-box: fill-box; transform-origin: center; opacity: 0; }
+.deco.in .card-g { animation: deal .9s cubic-bezier(.2,.8,.2,1) both, floatc 5s ease-in-out 1s infinite alternate; }
+.deco.in .chip-g { animation: drop .7s cubic-bezier(.3,1.4,.4,1) both, floatk 4s ease-in-out .8s infinite alternate; }
+.deco.in .anim:nth-child(1) { animation-delay: .05s, 1s; }
+.deco.in g:nth-of-type(2) > .anim { animation-delay: .18s, 1.3s; }
+.deco.in g:nth-of-type(3) > .anim { animation-delay: .31s, 1.6s; }
+.deco.in g:nth-of-type(4) > .anim { animation-delay: .44s, 1.9s; }
+.deco.in g:nth-of-type(5) > .anim { animation-delay: .57s, 2.2s; }
+@keyframes deal { from { opacity: 0; transform: translate(60px, -40px) rotate(18deg); } 60% { opacity: 1; } to { opacity: 1; transform: none; } }
+@keyframes drop { from { opacity: 0; transform: translateY(-46px) scale(.7); } 70% { opacity: 1; } to { opacity: 1; transform: none; } }
+@keyframes floatc { from { transform: translateY(0) rotate(0); } to { transform: translateY(-4px) rotate(-2deg); } }
+@keyframes floatk { from { transform: translateY(0); } to { transform: translateY(-3px); } }
+.route .track .plane svg { animation: bob 2.4s ease-in-out infinite alternate; }
+@keyframes bob { from { transform: rotate(90deg) translateX(0); } to { transform: rotate(90deg) translateX(-3px); } }
+.cd .d.s2 b.tick { animation: tick .5s cubic-bezier(.2,.8,.2,1); }
+@keyframes tick { from { transform: scale(1.08); opacity: .6; } to { transform: scale(1); opacity: 1; } }
+.cd .d.s2 b { display: inline-block; transform-origin: center bottom; }
+@media (prefers-reduced-motion: reduce) {
+  .deco .anim, .deco.in .card-g, .deco.in .chip-g { animation: none !important; opacity: 1; }
+  .route .track .plane svg, .cd .d.s2 b.tick { animation: none !important; }
+}
+
 .deco-ph { position: relative; z-index: 2; width: 170px; height: 74px; margin: -46px 6px -6px auto; }
 .deco-ph svg { width: 100%; height: 100%; }
 @media (max-width: 980px) {
@@ -283,39 +307,39 @@ body { overflow-x: clip; }
     </div>
   <div class="deco deco-cd" aria-hidden="true"><svg viewBox="0 0 340 190" width="340" height="190">
     
-    <g transform="translate(200 92) rotate(-14)">
+    <g transform="translate(200 92) rotate(-14)"><g class="anim card-g">
       <rect class="card" x="-44" y="-62" width="88" height="124" rx="9"/>
       <text x="-34" y="-36" font-size="24" class="s-k" style="fill:currentColor">A</text>
       <use href="#spade" x="-36" y="-32" width="16" height="16" class="s-k"/>
       <use href="#spade" x="-22" y="-22" width="44" height="44" class="s-k"/>
       <g transform="rotate(180)"><text x="-34" y="-36" font-size="24" class="s-k" style="fill:currentColor">A</text><use href="#spade" x="-36" y="-32" width="16" height="16" class="s-k"/></g>
-    </g>
+    </g></g>
     
-    <g transform="translate(265 100) rotate(8)">
+    <g transform="translate(265 100) rotate(8)"><g class="anim card-g">
       <rect class="card" x="-44" y="-62" width="88" height="124" rx="9"/>
       <text x="-34" y="-36" font-size="24" class="s-o" style="fill:currentColor">9</text>
       <use href="#heart" x="-36" y="-32" width="16" height="16" class="s-o"/>
       <use href="#heart" x="-22" y="-22" width="44" height="44" class="s-o"/>
       <g transform="rotate(180)"><text x="-34" y="-36" font-size="24" class="s-o" style="fill:currentColor">9</text><use href="#heart" x="-36" y="-32" width="16" height="16" class="s-o"/></g>
-    </g>
+    </g></g>
     
-    <g transform="translate(72 128)">
+    <g transform="translate(72 128)"><g class="anim chip-g">
       <circle r="26" class="chip-o"/>
       <circle r="21" class="ring"/>
       <circle r="14" class="ring2"/>
-    </g>
+    </g></g>
     
-    <g transform="translate(106 146)">
+    <g transform="translate(106 146)"><g class="anim chip-g">
       <circle r="26" class="chip-k"/>
       <circle r="21" class="ring"/>
       <circle r="14" class="ring2"/>
-    </g>
+    </g></g>
     
-    <g transform="translate(44 158)">
+    <g transform="translate(44 158)"><g class="anim chip-g">
       <circle r="20" class="chip-p"/>
       <circle r="16" class="ring"/>
       <circle r="11" class="ring2"/>
-    </g>
+    </g></g>
   </svg></div>
   </section>
 
@@ -326,29 +350,29 @@ body { overflow-x: clip; }
 
   <div class="deco deco-ph" aria-hidden="true"><svg viewBox="0 0 170 74" width="170" height="74">
     
-    <g transform="translate(40 40)">
+    <g transform="translate(40 40)"><g class="anim chip-g">
       <circle r="26" class="chip-k"/>
       <circle r="21" class="ring"/>
       <circle r="14" class="ring2"/>
-    </g>
+    </g></g>
     
-    <g transform="translate(80 46)">
+    <g transform="translate(80 46)"><g class="anim chip-g">
       <circle r="26" class="chip-o"/>
       <circle r="21" class="ring"/>
       <circle r="14" class="ring2"/>
-    </g>
+    </g></g>
     
-    <g transform="translate(118 36)">
+    <g transform="translate(118 36)"><g class="anim chip-g">
       <circle r="24" class="chip-p"/>
       <circle r="20" class="ring"/>
       <circle r="13" class="ring2"/>
-    </g>
+    </g></g>
     
-    <g transform="translate(146 50)">
+    <g transform="translate(146 50)"><g class="anim chip-g">
       <circle r="18" class="chip-o"/>
       <circle r="15" class="ring"/>
       <circle r="10" class="ring2"/>
-    </g>
+    </g></g>
   </svg></div>
   <section class="mf">
     <h2 class="h"><span class="n">5000</span>年間<br>成長し続けている産業がある</h2>
@@ -362,31 +386,31 @@ body { overflow-x: clip; }
     <div class="kick"><b>張る側から、<em>胴元側へ。</em></b></div>
   <div class="deco deco-mf" aria-hidden="true"><svg viewBox="0 0 260 110" width="260" height="110">
     
-    <g transform="translate(36 70)">
+    <g transform="translate(36 70)"><g class="anim chip-g">
       <circle r="26" class="chip-k"/>
       <circle r="21" class="ring"/>
       <circle r="14" class="ring2"/>
-    </g>
+    </g></g>
     
-    <g transform="translate(74 82)">
+    <g transform="translate(74 82)"><g class="anim chip-g">
       <circle r="26" class="chip-o"/>
       <circle r="21" class="ring"/>
       <circle r="14" class="ring2"/>
-    </g>
+    </g></g>
     
-    <g transform="translate(112 70)">
+    <g transform="translate(112 70)"><g class="anim chip-g">
       <circle r="26" class="chip-p"/>
       <circle r="21" class="ring"/>
       <circle r="14" class="ring2"/>
-    </g>
+    </g></g>
     <g transform="translate(200 62) scale(.72)">
-    <g transform="translate(0 0) rotate(12)">
+    <g transform="translate(0 0) rotate(12)"><g class="anim card-g">
       <rect class="card" x="-44" y="-62" width="88" height="124" rx="9"/>
       <text x="-34" y="-36" font-size="24" class="s-p" style="fill:currentColor">8</text>
       <use href="#diamond" x="-36" y="-32" width="16" height="16" class="s-p"/>
       <use href="#diamond" x="-22" y="-22" width="44" height="44" class="s-p"/>
       <g transform="rotate(180)"><text x="-34" y="-36" font-size="24" class="s-p" style="fill:currentColor">8</text><use href="#diamond" x="-36" y="-32" width="16" height="16" class="s-p"/></g>
-    </g></g>
+    </g></g></g>
   </svg></div>
   </section>
 
@@ -401,27 +425,27 @@ body { overflow-x: clip; }
     <div class="ex"><b>何よりも<em>「体験」</em>して頂きます。</b></div>
   <div class="deco deco-pg" aria-hidden="true"><svg viewBox="0 0 200 96" width="200" height="96">
     <g transform="translate(90 56) scale(.62)">
-    <g transform="translate(0 0) rotate(-10)">
+    <g transform="translate(0 0) rotate(-10)"><g class="anim card-g">
       <rect class="card" x="-44" y="-62" width="88" height="124" rx="9"/>
       <text x="-34" y="-36" font-size="24" class="s-k" style="fill:currentColor">K</text>
       <use href="#club" x="-36" y="-32" width="16" height="16" class="s-k"/>
       <use href="#club" x="-22" y="-22" width="44" height="44" class="s-k"/>
       <g transform="rotate(180)"><text x="-34" y="-36" font-size="24" class="s-k" style="fill:currentColor">K</text><use href="#club" x="-36" y="-32" width="16" height="16" class="s-k"/></g>
-    </g></g>
+    </g></g></g>
     <g transform="translate(138 54) scale(.62)">
-    <g transform="translate(0 0) rotate(9)">
+    <g transform="translate(0 0) rotate(9)"><g class="anim card-g">
       <rect class="card" x="-44" y="-62" width="88" height="124" rx="9"/>
       <text x="-34" y="-36" font-size="24" class="s-o" style="fill:currentColor">9</text>
       <use href="#heart" x="-36" y="-32" width="16" height="16" class="s-o"/>
       <use href="#heart" x="-22" y="-22" width="44" height="44" class="s-o"/>
       <g transform="rotate(180)"><text x="-34" y="-36" font-size="24" class="s-o" style="fill:currentColor">9</text><use href="#heart" x="-36" y="-32" width="16" height="16" class="s-o"/></g>
-    </g></g>
+    </g></g></g>
     
-    <g transform="translate(182 78)">
+    <g transform="translate(182 78)"><g class="anim chip-g">
       <circle r="16" class="chip-o"/>
       <circle r="13" class="ring"/>
       <circle r="9" class="ring2"/>
-    </g>
+    </g></g>
   </svg></div>
   </section>
 
@@ -546,6 +570,16 @@ body { overflow-x: clip; }
     return false;
   }
   if(!tick()) setInterval(tick,1000);
+})();
+</script>
+<script>
+(function(){
+  var decos=document.querySelectorAll('.deco');
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });},{threshold:.2});
+    decos.forEach(function(d){ io.observe(d); });
+  } else { decos.forEach(function(d){ d.classList.add('in'); }); }
+  var ss=document.getElementById('ss'); if(ss){ var last=ss.textContent; setInterval(function(){ if(ss.textContent!==last){ last=ss.textContent; ss.classList.remove('tick'); void ss.offsetWidth; ss.classList.add('tick'); } },100); }
 })();
 </script>
 </body></html>
