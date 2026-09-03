@@ -196,6 +196,7 @@ body { margin: 0; background: var(--bg); color: var(--ink); font-family: "Noto S
 
 
 
+
 /* decorative chips & cards */
 :root { --card-face: #FFFFFF; --card-ink: #111318; }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --card-face: #1F2126; --card-ink: #F3F1EC; } }
@@ -213,7 +214,8 @@ body { margin: 0; background: var(--bg); color: var(--ink); font-family: "Noto S
 .deco-cd { right: 0; top: 0; width: 340px; height: 190px; }
 .deco-mf { left: 0; bottom: -6px; width: 260px; height: 110px; }
 .deco-pg { right: 0; bottom: -8px; width: 200px; height: 96px; }
-body { overflow-x: clip; }
+html, body { overflow-x: hidden; max-width: 100%; }
+@media (max-width: 980px) { .wrap { overflow-x: hidden; } .deco { max-width: 100%; } }
 /* motion */
 .deco .anim { transform-box: fill-box; transform-origin: center; opacity: 0; }
 .deco.in .card-g { animation: deal .9s cubic-bezier(.2,.8,.2,1) both, floatc 5s ease-in-out 1s infinite alternate; }
