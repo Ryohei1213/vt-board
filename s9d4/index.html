@@ -193,6 +193,8 @@ body { margin: 0; background: var(--bg); color: var(--ink); font-family: "Noto S
 .ph-okada .cap span { font-family: "Barlow", sans-serif; font-weight: 600; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--panel-tag); }
 
 
+
+
 /* decorative chips & cards */
 :root { --card-face: #FFFFFF; --card-ink: #111318; }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --card-face: #1F2126; --card-ink: #F3F1EC; } }
@@ -210,8 +212,19 @@ body { margin: 0; background: var(--bg); color: var(--ink); font-family: "Noto S
 .deco-cd { right: 0; top: 0; width: 340px; height: 190px; }
 .deco-mf { left: 0; bottom: -6px; width: 260px; height: 110px; }
 .deco-pg { right: 0; bottom: -8px; width: 200px; height: 96px; }
-@media (max-width: 980px) { .deco-cd { display: none; } }
-@media (max-width: 760px) { .deco-mf, .deco-pg { display: none; } }
+body { overflow-x: clip; }
+.deco-ph { position: relative; z-index: 2; width: 170px; height: 74px; margin: -46px 6px -6px auto; }
+.deco-ph svg { width: 100%; height: 100%; }
+@media (max-width: 980px) {
+  .deco-cd { position: static; width: 300px; height: 168px; margin: 6px -28px 0 auto; transform: rotate(-4deg); }
+  .deco-cd svg { width: 100%; height: 100%; }
+}
+@media (max-width: 760px) {
+  .deco-mf { position: static; width: 240px; height: 102px; margin: 8px 0 0 -22px; transform: rotate(3deg); }
+  .deco-pg { position: static; width: 200px; height: 96px; margin: 2px -22px 0 auto; transform: rotate(-5deg); }
+  .deco-mf svg, .deco-pg svg { width: 100%; height: 100%; }
+  .deco-ph { width: 140px; height: 62px; margin: -38px 0 -4px auto; }
+}
 </style>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="chip" viewBox="0 0 100 100">
@@ -240,6 +253,34 @@ body { margin: 0; background: var(--bg); color: var(--ink); font-family: "Noto S
   </header>
 
   <section class="cd">
+    <div class="lbl" id="lbl"><b>NH869 羽田</b> の出発まで</div>
+    <div class="digits" id="digits">
+      <div class="d"><b id="dd">--</b><span>日</span></div>
+      <div class="d"><b id="hh">--</b><span>時間</span></div>
+      <div class="d"><b id="mm">--</b><span>分</span></div>
+      <div class="d s2"><b id="ss">--</b><span>秒</span></div>
+    </div>
+    <div class="route">
+      <div class="cities">
+        <div class="c"><b>HND</b><small>羽田</small></div>
+        <div class="c" style="text-align:right"><b class="ok">MNL</b><small>マニラ</small></div>
+      </div>
+      <div class="track"><div class="line"></div><div class="fill" id="fill"></div><div class="end"></div>
+        <div class="plane" id="plane"><svg viewBox="0 0 24 24"><path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg></div>
+      </div>
+    </div>
+    <div class="flights">
+      <div class="fl now" id="fl-out">
+        <div class="t"><span class="tag on">Outbound · 9.11 FRI</span><span class="fn">NH869</span></div>
+        <div class="ln">09:45 <i>HND</i> → 13:30 <i>MNL</i></div>
+        <div class="dt">全日本空輸 羽田 T3 発</div>
+      </div>
+      <div class="fl" id="fl-ret">
+        <div class="t"><span class="tag">Return · 9.13 SUN</span><span class="fn">NH870</span></div>
+        <div class="ln">14:40 <i>MNL</i> → 20:00 <i>HND</i></div>
+        <div class="dt">羽田 T3 着 20:00（全日本空輸）</div>
+      </div>
+    </div>
   <div class="deco deco-cd" aria-hidden="true"><svg viewBox="0 0 340 190" width="340" height="190">
     
     <g transform="translate(200 92) rotate(-14)">
@@ -276,34 +317,6 @@ body { margin: 0; background: var(--bg); color: var(--ink); font-family: "Noto S
       <circle r="11" class="ring2"/>
     </g>
   </svg></div>
-    <div class="lbl" id="lbl"><b>NH869 羽田</b> の出発まで</div>
-    <div class="digits" id="digits">
-      <div class="d"><b id="dd">--</b><span>日</span></div>
-      <div class="d"><b id="hh">--</b><span>時間</span></div>
-      <div class="d"><b id="mm">--</b><span>分</span></div>
-      <div class="d s2"><b id="ss">--</b><span>秒</span></div>
-    </div>
-    <div class="route">
-      <div class="cities">
-        <div class="c"><b>HND</b><small>羽田</small></div>
-        <div class="c" style="text-align:right"><b class="ok">MNL</b><small>マニラ</small></div>
-      </div>
-      <div class="track"><div class="line"></div><div class="fill" id="fill"></div><div class="end"></div>
-        <div class="plane" id="plane"><svg viewBox="0 0 24 24"><path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg></div>
-      </div>
-    </div>
-    <div class="flights">
-      <div class="fl now" id="fl-out">
-        <div class="t"><span class="tag on">Outbound · 9.11 FRI</span><span class="fn">NH869</span></div>
-        <div class="ln">09:45 <i>HND</i> → 13:30 <i>MNL</i></div>
-        <div class="dt">全日本空輸 羽田 T3 発</div>
-      </div>
-      <div class="fl" id="fl-ret">
-        <div class="t"><span class="tag">Return · 9.13 SUN</span><span class="fn">NH870</span></div>
-        <div class="ln">14:40 <i>MNL</i> → 20:00 <i>HND</i></div>
-        <div class="dt">羽田 T3 着 20:00（全日本空輸）</div>
-      </div>
-    </div>
   </section>
 
   <figure class="ph-okada" style="margin-left:0;margin-right:0">
@@ -311,7 +324,42 @@ body { margin: 0; background: var(--bg); color: var(--ink); font-family: "Noto S
     <figcaption class="cap"><b>OKADA MANILA</b><span>Entertainment City, Manila</span></figcaption>
   </figure>
 
+  <div class="deco deco-ph" aria-hidden="true"><svg viewBox="0 0 170 74" width="170" height="74">
+    
+    <g transform="translate(40 40)">
+      <circle r="26" class="chip-k"/>
+      <circle r="21" class="ring"/>
+      <circle r="14" class="ring2"/>
+    </g>
+    
+    <g transform="translate(80 46)">
+      <circle r="26" class="chip-o"/>
+      <circle r="21" class="ring"/>
+      <circle r="14" class="ring2"/>
+    </g>
+    
+    <g transform="translate(118 36)">
+      <circle r="24" class="chip-p"/>
+      <circle r="20" class="ring"/>
+      <circle r="13" class="ring2"/>
+    </g>
+    
+    <g transform="translate(146 50)">
+      <circle r="18" class="chip-o"/>
+      <circle r="15" class="ring"/>
+      <circle r="10" class="ring2"/>
+    </g>
+  </svg></div>
   <section class="mf">
+    <h2 class="h"><span class="n">5000</span>年間<br>成長し続けている産業がある</h2>
+    <p class="lead">そして、AI時代では、これまでにないほど成長する。</p>
+    <div class="ir"><b>2030</b><span>大阪 IR 開業予定<small>Osaka Integrated Resort</small></span></div>
+    <div class="body">
+      <p>メソポタミアの遺跡から、約五千年前のサイコロが出土しています。文字を持つ前から、人は賭けていました。ローマの闘技場でも、江戸の富くじでも。</p>
+      <p>賭けとは悪癖ではありません。まだ無い未来に、いま持っている何かを差し出すこと。その能力を持つのは人間だけです。歴史上、何度禁じられても、一度も消えたことがありません。</p>
+    </div>
+    <p class="pull">五千年間、潰れなかった産業は、<br>農業と賭博くらいのもの。</p>
+    <div class="kick"><b>張る側から、<em>胴元側へ。</em></b></div>
   <div class="deco deco-mf" aria-hidden="true"><svg viewBox="0 0 260 110" width="260" height="110">
     
     <g transform="translate(36 70)">
@@ -340,18 +388,17 @@ body { margin: 0; background: var(--bg); color: var(--ink); font-family: "Noto S
       <g transform="rotate(180)"><text x="-34" y="-36" font-size="24" class="s-p" style="fill:currentColor">8</text><use href="#diamond" x="-36" y="-32" width="16" height="16" class="s-p"/></g>
     </g></g>
   </svg></div>
-    <h2 class="h"><span class="n">5000</span>年間<br>成長し続けている産業がある</h2>
-    <p class="lead">そして、AI時代では、これまでにないほど成長する。</p>
-    <div class="ir"><b>2030</b><span>大阪 IR 開業予定<small>Osaka Integrated Resort</small></span></div>
-    <div class="body">
-      <p>メソポタミアの遺跡から、約五千年前のサイコロが出土しています。文字を持つ前から、人は賭けていました。ローマの闘技場でも、江戸の富くじでも。</p>
-      <p>賭けとは悪癖ではありません。まだ無い未来に、いま持っている何かを差し出すこと。その能力を持つのは人間だけです。歴史上、何度禁じられても、一度も消えたことがありません。</p>
-    </div>
-    <p class="pull">五千年間、潰れなかった産業は、<br>農業と賭博くらいのもの。</p>
-    <div class="kick"><b>張る側から、<em>胴元側へ。</em></b></div>
   </section>
 
   <section class="pg">
+    <div class="ph"><h2>研修の内容</h2><span class="tag">Program</span></div>
+    <ol>
+      <li><span class="n">1</span><b>カジノ業界の構造</b><small>Industry Structure</small></li>
+      <li><span class="n">2</span><b>バカラ体験（ルール説明）</b><small>Baccarat — Play &amp; Rules</small></li>
+      <li><span class="n">3</span><b>バカラの数学的構造解説</b><small>The Mathematics</small></li>
+      <li><span class="n">4</span><b>VERION の戦略</b><small>Strategy</small></li>
+    </ol>
+    <div class="ex"><b>何よりも<em>「体験」</em>して頂きます。</b></div>
   <div class="deco deco-pg" aria-hidden="true"><svg viewBox="0 0 200 96" width="200" height="96">
     <g transform="translate(90 56) scale(.62)">
     <g transform="translate(0 0) rotate(-10)">
@@ -376,14 +423,6 @@ body { margin: 0; background: var(--bg); color: var(--ink); font-family: "Noto S
       <circle r="9" class="ring2"/>
     </g>
   </svg></div>
-    <div class="ph"><h2>研修の内容</h2><span class="tag">Program</span></div>
-    <ol>
-      <li><span class="n">1</span><b>カジノ業界の構造</b><small>Industry Structure</small></li>
-      <li><span class="n">2</span><b>バカラ体験（ルール説明）</b><small>Baccarat — Play &amp; Rules</small></li>
-      <li><span class="n">3</span><b>バカラの数学的構造解説</b><small>The Mathematics</small></li>
-      <li><span class="n">4</span><b>VERION の戦略</b><small>Strategy</small></li>
-    </ol>
-    <div class="ex"><b>何よりも<em>「体験」</em>して頂きます。</b></div>
   </section>
 
   <div class="chk-h">
