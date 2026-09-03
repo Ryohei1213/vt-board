@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow">
+<style>html{color-scheme:light dark}img{max-width:100%}</style></head><body>
+<title>VERION ゲーミング研修 出発前チェックリスト</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;500;700;900&family=Barlow+Condensed:wght@700;800&family=Barlow:wght@500;600&display=swap">
+<style>
+:root {
+  --bg: #FFFFFF; --ink: #111318; --body: #3A3D44; --mid: #8A8D94; --rule: #111318; --hair: #DCDCD8;
+  --panel: #111318; --panel-ink: #FFFFFF; --panel-hair: rgba(255,255,255,.18); --panel-tag: #F6C08E;
+  --soft: #F3F2EE; --acc: #E88A2E; --okada: #98117F; --check: #E88A2E;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #131417; --ink: #F3F1EC; --body: #C9C7C1; --mid: #8E9096; --rule: #F3F1EC; --hair: #2C2E33;
+    --panel: #1F2126; --panel-ink: #F3F1EC; --panel-hair: rgba(255,255,255,.14); --panel-tag: #F6C08E;
+    --soft: #1B1C20; --acc: #F09A45; --okada: #C94BB0; --check: #F09A45;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #131417; --ink: #F3F1EC; --body: #C9C7C1; --mid: #8E9096; --rule: #F3F1EC; --hair: #2C2E33;
+  --panel: #1F2126; --panel-ink: #F3F1EC; --panel-hair: rgba(255,255,255,.14); --panel-tag: #F6C08E;
+  --soft: #1B1C20; --acc: #F09A45; --okada: #C94BB0; --check: #F09A45;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: "Noto Sans JP", "Hiragino Sans", "Hiragino Kaku Gothic ProN", sans-serif; font-weight: 300; line-height: 1.7; font-feature-settings: "palt"; -webkit-font-smoothing: antialiased; }
+.cond { font-family: "Barlow Condensed", "Avenir Next Condensed", sans-serif; font-weight: 800; }
+.tag { font-family: "Barlow", "Avenir Next", sans-serif; font-weight: 600; font-size: 12px; letter-spacing: .18em; text-transform: uppercase; color: var(--acc); }
+.wrap { max-width: 1040px; margin: 0 auto; padding: 40px 24px 80px; }
+@media (max-width: 640px) { .wrap { padding: 28px 18px 64px; } }
+
+/* header */
+.hd { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 24px; padding-bottom: 20px; border-bottom: 5px solid var(--rule); }
+.hd .tag { display: block; margin-bottom: 12px; }
+.hd h1 { font-weight: 900; font-size: clamp(30px, 5vw, 50px); line-height: 1.15; letter-spacing: .02em; margin: 0; text-wrap: balance; }
+.hd h1 .vr { font-family: "Barlow Condensed", "Avenir Next Condensed", sans-serif; font-weight: 800; font-size: 1.12em; color: var(--acc); letter-spacing: .02em; }
+.hd .venue { text-align: right; }
+.hd .venue .big { font-size: clamp(40px, 6vw, 62px); line-height: .92; letter-spacing: .01em; color: var(--okada); }
+.hd .venue .sm { margin-top: 10px; font-weight: 500; font-size: 13px; letter-spacing: .04em; }
+@media (max-width: 640px) {
+  .hd { grid-template-columns: 1fr; }
+  .hd .venue { text-align: left; padding-top: 6px; border-top: 1px solid var(--hair); }
+}
+.intro { display: flex; justify-content: space-between; gap: 16px; align-items: baseline; padding: 16px 0 18px; border-bottom: 1px solid var(--rule); font-weight: 500; font-size: 15px; letter-spacing: .02em; }
+.intro .tag { color: var(--mid); white-space: nowrap; }
+@media (max-width: 640px) { .intro { flex-direction: column; gap: 6px; } }
+
+/* main */
+.main { display: grid; grid-template-columns: 1fr 300px; gap: 40px; margin-top: 28px; align-items: start; }
+@media (max-width: 800px) { .main { grid-template-columns: 1fr; gap: 28px; } }
+.sec { display: grid; grid-template-columns: 64px 1fr; gap: 12px; padding: 22px 0; border-bottom: 1px solid var(--hair); }
+.sec:first-child { padding-top: 0; }
+.sec .n { font-size: 58px; line-height: .85; color: var(--acc); }
+.sec h2 { margin: 0 0 10px; font-weight: 700; font-size: 20px; letter-spacing: .04em; line-height: 1.3; }
+.sec h2 small { font-family: "Barlow", "Avenir Next", sans-serif; font-weight: 600; font-size: 11px; letter-spacing: .16em; color: var(--mid); margin-left: 12px; text-transform: uppercase; white-space: nowrap; }
+.sec dl { margin: 0; }
+.sec dl > div { display: grid; grid-template-columns: 160px 1fr; gap: 10px; padding: 7px 0; font-size: 14.5px; line-height: 1.65; }
+.sec dt { font-weight: 700; }
+.sec dd { margin: 0; color: var(--body); }
+@media (max-width: 640px) {
+  .sec { grid-template-columns: 44px 1fr; gap: 8px; }
+  .sec .n { font-size: 44px; }
+  .sec h2 small { display: block; margin: 4px 0 0; }
+  .sec dl > div { grid-template-columns: 1fr; gap: 2px; padding: 9px 0; border-top: 1px solid var(--hair); }
+}
+
+/* side */
+.side { position: sticky; top: 20px; display: grid; gap: 14px; }
+@media (max-width: 800px) { .side { position: static; } }
+.pk { background: var(--panel); color: var(--panel-ink); padding: 22px 22px 16px; }
+.pk .tag { color: var(--panel-tag); }
+.pk .pkh { display: flex; justify-content: space-between; align-items: baseline; margin: 6px 0 12px; }
+.pk h2 { margin: 0; font-weight: 700; font-size: 19px; letter-spacing: .04em; }
+.pk .cnt { font-family: "Barlow Condensed", sans-serif; font-weight: 700; font-size: 22px; color: var(--panel-tag); letter-spacing: .04em; font-variant-numeric: tabular-nums; }
+.pk ul { list-style: none; margin: 0; padding: 0; }
+.pk li { border-top: 1px solid var(--panel-hair); }
+.pk label { display: flex; align-items: flex-start; gap: 12px; padding: 11px 0; cursor: pointer; font-size: 14.5px; font-weight: 500; line-height: 1.45; }
+.pk label small { display: block; font-weight: 300; font-size: 12px; color: rgba(255,255,255,.62); }
+.pk input { appearance: none; -webkit-appearance: none; flex: none; width: 20px; height: 20px; margin: 2px 0 0; border: 2px solid var(--panel-ink); background: transparent; cursor: pointer; position: relative; }
+.pk input:checked { background: var(--check); border-color: var(--check); }
+.pk input:checked::after { content: ""; position: absolute; left: 5px; top: 1px; width: 6px; height: 11px; border: solid #111318; border-width: 0 3px 3px 0; transform: rotate(45deg); }
+.pk input:focus-visible { outline: 2px solid var(--panel-tag); outline-offset: 2px; }
+.pk label:has(input:checked) span { text-decoration: line-through; text-decoration-color: rgba(255,255,255,.5); opacity: .7; }
+.pk .reset { margin-top: 10px; background: none; border: 1px solid var(--panel-hair); color: rgba(255,255,255,.7); font: inherit; font-size: 12px; padding: 6px 10px; cursor: pointer; letter-spacing: .06em; }
+.pk .reset:hover { color: var(--panel-ink); border-color: var(--panel-ink); }
+.am { background: var(--soft); padding: 18px 22px 16px; }
+.am h2 { margin: 6px 0 2px; font-weight: 700; font-size: 16px; }
+.am p { margin: 0 0 10px; font-size: 12.5px; color: var(--mid); }
+.am ul { list-style: none; margin: 0; padding: 0; }
+.am li { font-size: 13.5px; line-height: 1.55; padding: 3px 0 3px 14px; position: relative; color: var(--body); }
+.am li::before { content: ""; position: absolute; left: 0; top: 10px; width: 6px; height: 6px; background: var(--acc); }
+@media (max-width: 800px) and (min-width: 560px) { .am ul { columns: 2; column-gap: 24px; } }
+
+/* schedule */
+.sch { margin-top: 36px; padding-top: 20px; border-top: 5px solid var(--rule); }
+.sch h2 { margin: 0 0 16px; font-weight: 700; font-size: 20px; letter-spacing: .04em; }
+.sch h2 small { font-family: "Barlow", sans-serif; font-weight: 600; font-size: 11px; letter-spacing: .16em; color: var(--mid); margin-left: 12px; text-transform: uppercase; }
+.days { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+@media (max-width: 720px) { .days { grid-template-columns: 1fr; } }
+.day .dh { background: var(--panel); color: var(--panel-ink); padding: 8px 12px; display: flex; justify-content: space-between; font-family: "Barlow", sans-serif; font-weight: 600; font-size: 12px; letter-spacing: .18em; }
+.day .dh span { color: var(--mid); }
+.day .dt { font-weight: 700; font-size: 16px; margin: 12px 0 6px; }
+.day .it { font-size: 14px; line-height: 1.5; padding: 7px 0; border-top: 1px solid var(--hair); color: var(--body); }
+.day .it span { display: block; font-family: "Barlow", sans-serif; font-weight: 600; font-size: 12px; letter-spacing: .1em; color: var(--acc); font-variant-numeric: tabular-nums; }
+
+.ft { margin-top: 48px; padding-top: 14px; border-top: 1px solid var(--hair); display: flex; justify-content: space-between; font-family: "Barlow", sans-serif; font-weight: 600; font-size: 11px; letter-spacing: .18em; color: var(--mid); text-transform: uppercase; }
+@media (prefers-reduced-motion: no-preference) { .pk input { transition: background .15s, border-color .15s; } }
+</style>
+
+<div class="wrap">
+  <header class="hd">
+    <div>
+      <span class="tag">Verion Tour — Pre-Departure Checklist</span>
+      <h1><span class="vr">VERION</span> ゲーミング研修<br>出発前チェックリスト</h1>
+    </div>
+    <div class="venue">
+      <div class="big cond">OKADA<br>MANILA</div>
+      <div class="sm">アジア最大級の IR 施設 オカダマニラ</div>
+    </div>
+  </header>
+  <div class="intro"><span>最高に濃い三日間を、万全の準備で迎えていただくためのご案内です。出発前に一度お目通しください。</span><span class="tag">Read before departure</span></div>
+
+  <div class="main">
+    <div>
+      <section class="sec"><div class="n cond">1</div><div>
+        <h2>出入国・手続きの必須事項<small>Immigration</small></h2>
+        <dl>
+          <div><dt>パスポート残存期間</dt><dd>滞在日数＋6ヶ月以上が必要。今一度ご確認ください。</dd></div>
+          <div><dt>eTravel 登録（必須）</dt><dd>出発 72 時間前から登録可。前日までに済ませ QR コードをスマホ保存（無料・偽サイト注意）。</dd></div>
+          <div><dt>復路航空券</dt><dd>入国審査で帰国便の提示を求められます。E チケット控えをすぐ出せるように。</dd></div>
+        </dl></div></section>
+      <section class="sec"><div class="n cond">2</div><div>
+        <h2>服装・館内マナー<small>Dress &amp; Manners</small></h2>
+        <dl>
+          <div><dt>館内は冷房が効いている</dt><dd>外は 30 度超でも館内は寒く感じる可能性があるので、羽織るものをご持参ください。</dd></div>
+          <div><dt>ドレスコード</dt><dd>特に気にしなくて OK です。</dd></div>
+          <div><dt>セキュリティ</dt><dd>カジノ内は帽子・サングラス NG。写真・動画撮影は厳禁です。</dd></div>
+        </dl></div></section>
+      <section class="sec"><div class="n cond">3</div><div>
+        <h2>お金・両替・通信<small>Money &amp; Connectivity</small></h2>
+        <dl>
+          <div><dt>両替</dt><dd>日本での両替はレートが不利。現地空港かオカダ館内キャッシャーが安心。日本円（万札）現金を持参。</dd></div>
+          <div><dt>決済</dt><dd>館内はカード可。心付け等のため現地通貨（ペソ）も少額あると安心。</dd></div>
+          <div><dt>通信</dt><dd>館内は無料 Wi-Fi あり。移動時に備え海外ローミング／eSIM／レンタル Wi-Fi の事前手配を推奨。</dd></div>
+        </dl></div></section>
+      <section class="sec" style="border-bottom:0"><div class="n cond">4</div><div>
+        <h2>水・衛生・現地の心得<small>Health</small></h2>
+        <dl>
+          <div><dt>水道水は飲まない</dt><dd>歯磨き・うがいもミネラルウォーターが安心。飲用は必ずペットボトル水を。</dd></div>
+          <div><dt>氷・生もの</dt><dd>ホテル内は概ね安全ですが、お腹の弱い方は氷・生野菜・屋台は控えめに。整腸剤の持参を推奨。</dd></div>
+        </dl></div></section>
+    </div>
+
+    <aside class="side">
+      <div class="pk">
+        <span class="tag">Packing List</span>
+        <div class="pkh"><h2>持ち物チェック</h2><span class="cnt" id="cnt">0 / 8</span></div>
+        <ul id="pk">
+          <li><label><input type="checkbox" data-k="passport"><span>パスポート<small>残存 6 ヶ月以上</small></span></label></li>
+          <li><label><input type="checkbox" data-k="ticket"><span>往復航空券<small>E チケット控え</small></span></label></li>
+          <li><label><input type="checkbox" data-k="etravel"><span>eTravel の QR コード<small>スマホ保存</small></span></label></li>
+          <li><label><input type="checkbox" data-k="jpy"><span>日本円の現金<small>現地両替用</small></span></label></li>
+          <li><label><input type="checkbox" data-k="card"><span>クレジットカード<small>複数枚推奨</small></span></label></li>
+          <li><label><input type="checkbox" data-k="med"><span>常備薬・整腸剤<small>日本のものを持参</small></span></label></li>
+          <li><label><input type="checkbox" data-k="charger"><span>充電器・モバイルバッテリー</span></label></li>
+          <li><label><input type="checkbox" data-k="jacket"><span>羽織りもの</span></label></li>
+        </ul>
+        <button class="reset" id="reset" type="button">チェックをリセット</button>
+      </div>
+      <div class="am">
+        <span class="tag">In-Room Amenities</span>
+        <h2>客室アメニティ</h2>
+        <p>客室に備え付けのため持参不要</p>
+        <ul>
+          <li>ソファ付きリビングスペース</li><li>バスタブ付きの広いバスルーム</li><li>Roberto Cavalli のバスアメニティ</li><li>バスローブ（Boca Terry）</li><li>温水洗浄便座付きトイレ</li><li>ドライヤー・体重計</li><li>羽毛の寝具・コットン 100% のリネン</li><li>ウォークインクローゼット</li><li>セーフティボックス</li><li>ミニバー／コーヒー・紅茶メーカー</li><li>客室タブレット（Digi-Valet）</li><li>ウェルカムギフト・ターンダウンサービス</li><li>無料 Wi-Fi</li>
+        </ul>
+      </div>
+    </aside>
+  </div>
+
+  <section class="sch">
+    <h2>当日の想定スケジュール<small>Schedule</small></h2>
+    <div class="days">
+      <div class="day"><div class="dh"><b>DAY 1</b><span>FRI</span></div><div class="dt">到着・ルール研修</div>
+        <div class="it"><span>午後</span>オカダマニラ到着・チェックイン</div>
+        <div class="it"><span>15:30</span>ゲームルール研修</div>
+        <div class="it"><span>19:30</span>ウェルカムディナー</div>
+        <div class="it"><span>21:30</span>カジノ体験</div></div>
+      <div class="day"><div class="dh"><b>DAY 2</b><span>SAT</span></div><div class="dt">視察・実務習得</div>
+        <div class="it"><span>午前</span>フリー（食事は各自）</div>
+        <div class="it"><span>14:00</span>VIPルーム・ヴィラ視察</div>
+        <div class="it"><span>15:00</span>カジノ収益構造・海外状況の研修</div>
+        <div class="it"><span>17:00</span>フリー（食事は各自）</div></div>
+      <div class="day"><div class="dh"><b>DAY 3</b><span>SUN</span></div><div class="dt">チェックアウト・帰国</div>
+        <div class="it"><span>午前</span>フリー（食事は各自）</div>
+        <div class="it"><span>10:00 / 12:00</span>チェックアウト（便に応じて）</div>
+        <div class="it"><span>その後</span>空港へ移動・ご帰国</div></div>
+    </div>
+  </section>
+
+  <footer class="ft"><span>Confidential</span><span>Verion Tour</span></footer>
+</div>
+
+<script>
+(function(){
+  var KEY='verion-gaming-checklist-v1';
+  var boxes=Array.prototype.slice.call(document.querySelectorAll('#pk input'));
+  var cnt=document.getElementById('cnt');
+  function load(){ try{ var s=JSON.parse(localStorage.getItem(KEY)||'{}'); boxes.forEach(function(b){ b.checked=!!s[b.dataset.k]; }); }catch(e){} }
+  function save(){ try{ var s={}; boxes.forEach(function(b){ s[b.dataset.k]=b.checked; }); localStorage.setItem(KEY,JSON.stringify(s)); }catch(e){} }
+  function update(){ var n=boxes.filter(function(b){return b.checked;}).length; cnt.textContent=n+' / '+boxes.length; }
+  boxes.forEach(function(b){ b.addEventListener('change',function(){ save(); update(); }); });
+  document.getElementById('reset').addEventListener('click',function(){ boxes.forEach(function(b){ b.checked=false; }); save(); update(); });
+  load(); update();
+})();
+</script>
+</body></html>
