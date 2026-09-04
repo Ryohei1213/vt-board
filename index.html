@@ -67,7 +67,7 @@ p { margin: 0; }
 .hero .ph.video:hover img { opacity: 1; transform: scale(1.02); }
 .hero .ph.video:focus-visible { outline: 3px solid var(--acc); outline-offset: 3px; }
 /* 本番（自前ホスティング）: ポスターをタップするとその場で再生 */
-.hero .ph.video video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; background: #0F1B2D; }
+.hero .ph.video video, .hero .ph.video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; object-fit: cover; background: #0F1B2D; }
 .hero .ph.video.playing img, .hero .ph.video.playing .play { display: none; }
 .hero .ph.video.playing img { transform: none; }
 .hero .ph.video button.play { cursor: pointer; font: inherit; font-weight: 700; font-size: 14px; letter-spacing: .08em; }
@@ -334,12 +334,11 @@ p { margin: 0; }
   <div class="hero">
     <figure>
       <div class="ph video" id="hv">
-        <video id="hvid" playsinline preload="none" poster="assets/poster_movie.jpg" controls controlslist="nodownload"><source src="assets/movie_90s.mp4" type="video/mp4"></video>
         <img src="assets/poster_movie.jpg" alt="ゲーミング研修 紹介ムービー">
         <button type="button" class="play" id="hvplay" aria-label="紹介ムービーを再生"><i></i>動画を見る</button>
       </div>
-      <figcaption><span>ゲーミング研修 紹介ムービー（90秒）</span><a href="https://vimeo.com/1223585381/038fd04e23" target="_blank" rel="noopener">Vimeoで開く</a></figcaption>
-<script>(function(){var w=document.getElementById("hv"),v=document.getElementById("hvid"),b=document.getElementById("hvplay");function go(){w.classList.add("playing");v.play();}b.addEventListener("click",go);w.querySelector("img").addEventListener("click",go);v.addEventListener("ended",function(){w.classList.remove("playing");v.load();});})();</script>
+      <figcaption><span>ゲーミング研修 紹介ムービー</span><a href="https://www.youtube.com/watch?v=AdEqockx8yE" target="_blank" rel="noopener">YouTubeで開く</a></figcaption>
+<script>(function(){var w=document.getElementById("hv"),b=document.getElementById("hvplay"),done=false;function go(){if(done)return;done=true;var f=document.createElement("iframe");f.src="https://www.youtube-nocookie.com/embed/AdEqockx8yE?autoplay=1&rel=0&modestbranding=1&playsinline=1";f.title="ゲーミング研修 紹介ムービー";f.allow="autoplay; encrypted-media; picture-in-picture; fullscreen";f.setAttribute("allowfullscreen","");f.setAttribute("referrerpolicy","strict-origin-when-cross-origin");w.appendChild(f);w.classList.add("playing");}b.addEventListener("click",go);w.querySelector("img").addEventListener("click",go);})();</script>
     </figure>
     <dl class="facts">
       <div><dt>Venue</dt><dd>オカダマニラ</dd></div>
