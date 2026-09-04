@@ -16,21 +16,11 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;500;700;900&family=Barlow+Condensed:wght@700;800&family=Barlow:wght@500;600&display=swap">
 <style>
 :root {
-  --bg: #FFFFFF; --ink: #111318; --body: #3A3D44; --mid: #8A8D94; --rule: #111318; --hair: #DCDCD8;
-  --panel: #111318; --panel-ink: #FFFFFF; --panel-hair: rgba(255,255,255,.18); --panel-tag: #F6C08E; --panel-dim: rgba(255,255,255,.62);
-  --soft: #F3F2EE; --acc: #E88A2E; --okada: #98117F; --btn: #111318; --btn-ink: #FFFFFF;
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #131417; --ink: #F3F1EC; --body: #C9C7C1; --mid: #8E9096; --rule: #F3F1EC; --hair: #2C2E33;
-    --panel: #1F2126; --panel-ink: #F3F1EC; --panel-hair: rgba(255,255,255,.14); --panel-tag: #F6C08E; --panel-dim: rgba(255,255,255,.6);
-    --soft: #1B1C20; --acc: #F09A45; --okada: #C94BB0; --btn: #F3F1EC; --btn-ink: #131417;
-  }
-}
-:root[data-theme="dark"] {
-  --bg: #131417; --ink: #F3F1EC; --body: #C9C7C1; --mid: #8E9096; --rule: #F3F1EC; --hair: #2C2E33;
-  --panel: #1F2126; --panel-ink: #F3F1EC; --panel-hair: rgba(255,255,255,.14); --panel-tag: #F6C08E; --panel-dim: rgba(255,255,255,.6);
-  --soft: #1B1C20; --acc: #F09A45; --okada: #C94BB0; --btn: #F3F1EC; --btn-ink: #131417;
+  color-scheme: dark;
+  --bg: #0A1226; --bg2: #0D1730; --ink: #EEF3FF; --body: #B9C5E0; --mid: #7D8CB0; --rule: #EEF3FF; --hair: rgba(159,176,214,.22);
+  --panel: #152142; --panel-ink: #EEF3FF; --panel-hair: rgba(159,176,214,.22); --panel-tag: #7FD6FF; --panel-dim: rgba(238,243,255,.62);
+  --soft: #111C38; --acc: #7FD6FF; --cta: #E88A2E; --okada: #D66BC4; --btn: #E88A2E; --btn-ink: #0A1226;
+  --route: #E88A2E; --sky1: #04091A; --sky2: #0B1A3F; --earth: #1B4B9C;
 }
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
@@ -44,11 +34,18 @@ p { margin: 0; }
 .wrap { max-width: 1040px; margin: 0 auto; padding: 40px 24px 80px; }
 @media (max-width: 640px) { .wrap { padding: 28px 18px 64px; } }
 
+/* sky (animated flight-map background) */
+.top { position: relative; isolation: isolate; }
+.top .sky { position: absolute; inset: 0; z-index: -1; overflow: hidden; background: linear-gradient(180deg, var(--sky1) 0%, var(--sky2) 55%, var(--bg) 100%); }
+.top .sky canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.top .sky::after { content: ""; position: absolute; inset: auto 0 0 0; height: 45%; background: linear-gradient(180deg, rgba(10,18,38,0) 0%, var(--bg) 100%); pointer-events: none; }
+.top .wrap { padding-bottom: 8px; }
+.top + .wrap { padding-top: 0; }
 /* masthead */
 .hd { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 24px; padding-bottom: 20px; border-bottom: 5px solid var(--rule); }
 .hd .tag { display: block; margin-bottom: 12px; }
 .hd h1 { font-weight: 900; font-size: clamp(30px, 5vw, 50px); line-height: 1.15; letter-spacing: .02em; margin: 0; text-wrap: balance; }
-.hd h1 .vr { font-family: "Barlow Condensed", "Avenir Next Condensed", sans-serif; font-weight: 800; font-size: 1.12em; color: var(--acc); letter-spacing: .02em; }
+.hd h1 .vr { font-family: "Barlow Condensed", "Avenir Next Condensed", sans-serif; font-weight: 800; font-size: 1.12em; color: var(--cta); letter-spacing: .02em; }
 .hd .venue { text-align: right; }
 .hd .venue .big { font-size: clamp(40px, 6vw, 62px); line-height: .92; letter-spacing: .01em; color: var(--okada); }
 .hd .venue .sm { margin-top: 10px; font-weight: 500; font-size: 13px; letter-spacing: .04em; }
@@ -65,14 +62,14 @@ p { margin: 0; }
 .hero figure { margin: 0; }
 .hero .ph { aspect-ratio: 16 / 9; overflow: hidden; background: var(--soft); }
 .hero .ph img { width: 100%; height: 100%; object-fit: cover; }
-.hero .ph.video { position: relative; display: block; background: #111318; color: #fff; text-decoration: none; }
+.hero .ph.video { position: relative; display: block; background: #04091A; color: #fff; text-decoration: none; }
 .hero .ph.video img { opacity: .92; transition: opacity .2s, transform .4s; }
 .hero .ph.video:hover img { opacity: 1; transform: scale(1.02); }
 .hero .ph.video:focus-visible { outline: 3px solid var(--acc); outline-offset: 3px; }
-.hero .play { position: absolute; left: 16px; bottom: 16px; display: inline-flex; align-items: center; gap: 12px; background: rgba(17,19,24,.78); border: 1px solid rgba(255,255,255,.35); padding: 12px 22px 12px 16px; font-weight: 700; font-size: 14px; letter-spacing: .08em; backdrop-filter: blur(4px); }
-.hero .play i { width: 0; height: 0; border-style: solid; border-width: 9px 0 9px 15px; border-color: transparent transparent transparent var(--acc); }
-.hero .ph.video:hover .play { background: var(--acc); border-color: var(--acc); color: #111318; }
-.hero .ph.video:hover .play i { border-left-color: #111318; }
+.hero .play { position: absolute; left: 16px; bottom: 16px; display: inline-flex; align-items: center; gap: 12px; background: rgba(4,9,26,.78); border: 1px solid rgba(255,255,255,.35); padding: 12px 22px 12px 16px; font-weight: 700; font-size: 14px; letter-spacing: .08em; backdrop-filter: blur(4px); }
+.hero .play i { width: 0; height: 0; border-style: solid; border-width: 9px 0 9px 15px; border-color: transparent transparent transparent var(--cta); }
+.hero .ph.video:hover .play { background: var(--cta); border-color: var(--cta); color: #0A1226; }
+.hero .ph.video:hover .play i { border-left-color: #0A1226; }
 @media (prefers-reduced-motion: reduce) { .hero .ph.video img, .hero .ph.video:hover img { transition: none; transform: none; } }
 .hero figcaption { font-size: 12px; color: var(--mid); padding-top: 8px; display: flex; justify-content: space-between; gap: 12px; }
 .hero figcaption a { color: var(--mid); }
@@ -88,10 +85,10 @@ p { margin: 0; }
 .btn { display: inline-flex; align-items: center; gap: 12px; background: var(--btn); color: var(--btn-ink); text-decoration: none; font-weight: 700; font-size: 14px; letter-spacing: .04em; padding: 12px 18px; line-height: 1.2; border: 1px solid var(--btn); }
 .btn small { font-weight: 500; font-size: 11px; letter-spacing: .06em; opacity: .7; }
 .btn::after { content: "→"; font-family: "Barlow", sans-serif; font-weight: 600; margin-left: auto; }
-.btn:hover { background: var(--acc); border-color: var(--acc); color: #111318; }
+.btn:hover { background: var(--ink); border-color: var(--ink); color: var(--bg); }
 .btn:focus-visible { outline: 2px solid var(--acc); outline-offset: 3px; }
-.btn.acc { background: var(--acc); border-color: var(--acc); color: #111318; }
-.btn.acc:hover { background: var(--panel-ink); border-color: var(--panel-ink); }
+.btn.acc { background: var(--cta); border-color: var(--cta); color: #0A1226; }
+.btn.acc:hover { background: var(--ink); border-color: var(--ink); }
 .btn.wide { width: 100%; }
 
 /* main grid */
@@ -100,7 +97,7 @@ p { margin: 0; }
 .sec { display: grid; grid-template-columns: 64px 1fr; gap: 12px; padding: 26px 0; border-bottom: 1px solid var(--hair); }
 .sec:first-child { padding-top: 0; }
 .sec:last-child { border-bottom: 0; }
-.sec .n { font-size: 58px; line-height: .85; color: var(--acc); }
+.sec .n { font-size: 58px; line-height: .85; color: var(--cta); }
 .sec h2 { margin: 0 0 12px; font-weight: 700; font-size: 20px; letter-spacing: .04em; line-height: 1.3; text-wrap: balance; }
 .sec h2 small { font-family: "Barlow", "Avenir Next", sans-serif; font-weight: 600; font-size: 11px; letter-spacing: .16em; color: var(--mid); margin-left: 12px; text-transform: uppercase; white-space: nowrap; }
 .sec .lead { font-weight: 500; font-size: 15px; line-height: 1.8; margin-bottom: 14px; }
@@ -133,9 +130,9 @@ p { margin: 0; }
 .fg .fgo::before { width: 14px; height: 2px; }
 .fg .fgo::after { width: 2px; height: 14px; }
 .fg[open] .fgo::after { display: none; }
-.fg[open] summary .fgd { color: var(--acc); }
+.fg[open] summary .fgd { color: var(--cta); }
 .imp { display: grid; grid-template-columns: auto 1fr; gap: 14px; align-items: center; background: var(--panel); color: var(--panel-ink); padding: 12px 16px; font-size: 13.5px; font-weight: 500; line-height: 1.6; }
-.imp > b { font-family: "Barlow", sans-serif; font-weight: 600; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--panel-tag); border: 1px solid var(--panel-tag); padding: 3px 8px; white-space: nowrap; }
+.imp > b { font-family: "Barlow", sans-serif; font-weight: 600; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--cta); border: 1px solid var(--cta); padding: 3px 8px; white-space: nowrap; }
 .imp .cond { font-size: 20px; color: var(--panel-tag); vertical-align: -1px; }
 .tks { padding: 6px 0 22px; }
 .tk { display: grid; grid-template-columns: 72px 1fr; gap: 12px; padding: 16px 0; border-bottom: 1px solid var(--hair); }
@@ -177,7 +174,7 @@ p { margin: 0; }
 .step dl { margin-top: 12px; }
 .step dl > div { grid-template-columns: 150px 1fr; }
 .closer { margin-top: 20px; padding: 18px 0 0; border-top: 1px solid var(--rule); font-weight: 500; font-size: 15px; line-height: 1.85; }
-.closer em { font-style: normal; font-weight: 700; border-bottom: 2px solid var(--acc); }
+.closer em { font-style: normal; font-weight: 700; border-bottom: 2px solid var(--cta); }
 @media (max-width: 640px) { .step { grid-template-columns: 1fr; gap: 10px; } }
 
 /* stats */
@@ -223,9 +220,9 @@ p { margin: 0; }
 .budget .nt { grid-column: 1 / -1; font-size: 13px; color: var(--body); line-height: 1.7; margin-top: -4px; }
 .budget .am { font-size: 26px; line-height: 1; letter-spacing: .01em; text-align: right; white-space: nowrap; }
 .budget .am small { font-family: "Noto Sans JP", sans-serif; font-weight: 700; font-size: 13px; margin: 0 1px; }
-.budget .am.cov { font-family: "Noto Sans JP", sans-serif; font-weight: 700; font-size: 15px; color: var(--acc); }
+.budget .am.cov { font-family: "Noto Sans JP", sans-serif; font-weight: 700; font-size: 15px; color: var(--cta); }
 .budget .row.tot { border-bottom: 1px solid var(--rule); background: var(--soft); padding: 14px 14px; margin-top: 8px; }
-.budget .row.tot .am { color: var(--acc); font-size: 32px; }
+.budget .row.tot .am { color: var(--cta); font-size: 32px; }
 @media (max-width: 560px) {
   .budget .row { grid-template-columns: 1fr; gap: 4px; }
   .budget .am { text-align: left; }
@@ -274,9 +271,9 @@ p { margin: 0; }
 .am ul { list-style: none; margin: 0; padding: 0; }
 .am li { display: flex; justify-content: space-between; gap: 10px; align-items: baseline; font-size: 13px; padding: 5px 0; border-top: 1px solid var(--hair); color: var(--body); }
 .am li b { font-family: "Barlow Condensed", sans-serif; font-weight: 700; font-size: 17px; color: var(--ink); white-space: nowrap; font-variant-numeric: tabular-nums; }
-.am li b.cv { font-family: "Noto Sans JP", sans-serif; font-weight: 700; font-size: 13px; color: var(--acc); }
+.am li b.cv { font-family: "Noto Sans JP", sans-serif; font-weight: 700; font-size: 13px; color: var(--cta); }
 .am li.tot { border-top: 1px solid var(--rule); margin-top: 4px; padding-top: 10px; color: var(--ink); font-weight: 700; }
-.am li.tot b { color: var(--acc); font-size: 20px; }
+.am li.tot b { color: var(--cta); font-size: 20px; }
 
 /* cta band */
 .band { margin-top: 36px; background: var(--panel); color: var(--panel-ink); padding: 28px 28px; display: grid; grid-template-columns: 1fr auto; gap: 20px 40px; align-items: center; }
@@ -302,7 +299,7 @@ p { margin: 0; }
 /* closing */
 .close { margin-top: 48px; padding-top: 28px; border-top: 5px solid var(--rule); display: grid; grid-template-columns: 1fr auto; gap: 16px 40px; align-items: end; }
 .close .cr { font-weight: 900; font-size: clamp(22px, 3.4vw, 34px); line-height: 1.35; letter-spacing: .02em; text-wrap: balance; }
-.close .pax { font-size: clamp(30px, 4vw, 44px); line-height: 1; color: var(--acc); letter-spacing: .04em; text-align: right; }
+.close .pax { font-size: clamp(30px, 4vw, 44px); line-height: 1; color: var(--cta); letter-spacing: .04em; text-align: right; }
 @media (max-width: 640px) { .close { grid-template-columns: 1fr; } .close .pax { text-align: left; } }
 .ft { margin-top: 36px; padding-top: 14px; border-top: 1px solid var(--hair); display: grid; grid-template-columns: 1fr auto; gap: 12px 40px; font-size: 11.5px; color: var(--mid); line-height: 1.8; }
 .ft a { color: var(--mid); }
@@ -312,7 +309,9 @@ p { margin: 0; }
 @media print { .side { position: static; } .fg { break-inside: avoid; } }
 </style>
 
-<div class="wrap">
+<div class="top">
+  <div class="sky" aria-hidden="true"><canvas id="sky"></canvas></div>
+  <div class="wrap">
   <header class="hd">
     <div>
       <span class="tag">Verion Tour — Partner Gaming Training</span>
@@ -337,9 +336,12 @@ p { margin: 0; }
       <div><dt>Venue</dt><dd>オカダマニラ</dd></div>
       <div><dt>Schedule</dt><dd>毎月 第2週・第4週</dd></div>
       <div><dt>Duration</dt><dd>金・土・日の3日間</dd></div>
-      <div class="cta"><a class="btn wide" href="https://plain-noodle-6ad.notion.site/9290d092c36f833797ae816a3d3413e4" target="_blank" rel="noopener">申し込む</a></div>
+      <div class="cta"><a class="btn acc wide" href="https://plain-noodle-6ad.notion.site/9290d092c36f833797ae816a3d3413e4" target="_blank" rel="noopener">申し込む</a></div>
     </dl>
   </div>
+  </div>
+</div>
+<div class="wrap">
 
   <div class="main">
     <div>
@@ -693,6 +695,73 @@ p { margin: 0; }
     <p class="mk">Verion Tour</p>
   </footer>
 </div>
+
+
+<script>
+(function(){
+  var cv = document.getElementById('sky'); if(!cv) return;
+  var ctx = cv.getContext('2d'), W=0, H=0, dpr=1, t0=performance.now(), stars=[], running=true;
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function resize(){
+    var r = cv.parentNode.getBoundingClientRect(); dpr = Math.min(window.devicePixelRatio||1, 2);
+    W = Math.max(1, Math.round(r.width)); H = Math.max(1, Math.round(r.height));
+    cv.width = W*dpr; cv.height = H*dpr; ctx.setTransform(dpr,0,0,dpr,0,0);
+    stars = []; var n = Math.round(W*H/9000);
+    for(var i=0;i<n;i++) stars.push({x:Math.random()*W, y:Math.random()*H*0.85, r:Math.random()*1.1+0.3, p:Math.random()*6.28, s:0.4+Math.random()*0.8});
+    draw(performance.now());
+  }
+  // 航路: 左下(MNL) → 右上(TYO) の緩いベジェ
+  function route(){ return {x0:W*0.035, y0:H*0.74, cx:W*0.40, cy:H*0.02, x1:W*0.965, y1:H*0.09}; }
+  function bez(p,u){ var v=1-u; return {x: v*v*p.x0 + 2*v*u*p.cx + u*u*p.x1, y: v*v*p.y0 + 2*v*u*p.cy + u*u*p.y1}; }
+  function draw(now){
+    var T = (now - t0)/1000;
+    ctx.clearRect(0,0,W,H);
+    // 地球のふち（下部の大きな弧）と大気の光
+    var R = W*1.6, cxE = W*0.5, cyE = H*0.62 + R;
+    var g = ctx.createRadialGradient(cxE, cyE, R*0.96, cxE, cyE, R*1.06);
+    g.addColorStop(0, 'rgba(27,75,156,0.55)'); g.addColorStop(0.5, 'rgba(60,140,230,0.28)'); g.addColorStop(1, 'rgba(60,140,230,0)');
+    ctx.fillStyle = g; ctx.fillRect(0,0,W,H);
+    ctx.save(); ctx.beginPath(); ctx.arc(cxE, cyE, R, 0, 6.2832); ctx.clip();
+    var e = ctx.createLinearGradient(0, H*0.55, 0, H); e.addColorStop(0,'#123A7A'); e.addColorStop(1,'#0A1226');
+    ctx.fillStyle = e; ctx.fillRect(0,0,W,H);
+    // 経緯線
+    ctx.strokeStyle = 'rgba(127,214,255,0.10)'; ctx.lineWidth = 1;
+    for(var k=1;k<6;k++){ ctx.beginPath(); ctx.arc(cxE, cyE, R - k*38, 0, 6.2832); ctx.stroke(); }
+    for(var m=-6;m<=6;m++){ ctx.beginPath(); ctx.moveTo(cxE, cyE); ctx.lineTo(cxE + Math.sin(m*0.09)*R*1.2, cyE - Math.cos(m*0.09)*R*1.2); ctx.stroke(); }
+    ctx.restore();
+    // 星
+    for(var i=0;i<stars.length;i++){ var st=stars[i]; var a = 0.35 + 0.45*Math.sin(T*st.s + st.p); ctx.fillStyle='rgba(238,243,255,'+a.toFixed(2)+')'; ctx.beginPath(); ctx.arc(st.x, st.y, st.r, 0, 6.2832); ctx.fill(); }
+    // 航路（点線）＋進行部分（実線・発光）
+    var p = route(); var u = reduce ? 0.62 : ((T*0.055) % 1.15); if(u>1) u=1;
+    ctx.setLineDash([3,7]); ctx.strokeStyle='rgba(238,243,255,0.35)'; ctx.lineWidth=1.2;
+    ctx.beginPath(); ctx.moveTo(p.x0,p.y0); ctx.quadraticCurveTo(p.cx,p.cy,p.x1,p.y1); ctx.stroke(); ctx.setLineDash([]);
+    ctx.save(); ctx.shadowColor='rgba(232,138,46,0.9)'; ctx.shadowBlur=10; ctx.strokeStyle='#E88A2E'; ctx.lineWidth=2.2; ctx.beginPath(); ctx.moveTo(p.x0,p.y0);
+    var steps=60; for(var q=1;q<=steps;q++){ var b=bez(p, u*q/steps); ctx.lineTo(b.x,b.y); } ctx.stroke(); ctx.restore();
+    // 空港マーカーとラベル
+    ctx.font = '600 11px Barlow, "Avenir Next", sans-serif'; ctx.fillStyle='rgba(238,243,255,0.85)'; ctx.textBaseline='middle';
+    [[p.x0,p.y0,'MNL  MANILA',10,16],[p.x1,p.y1,'TYO  TOKYO',-84,18]].forEach(function(m){
+      ctx.beginPath(); ctx.arc(m[0],m[1],3.2,0,6.2832); ctx.fillStyle='#7FD6FF'; ctx.fill();
+      ctx.beginPath(); ctx.arc(m[0],m[1],8,0,6.2832); ctx.strokeStyle='rgba(127,214,255,0.45)'; ctx.lineWidth=1; ctx.stroke();
+      ctx.fillStyle='rgba(238,243,255,0.85)'; ctx.fillText(m[2], m[0]+m[3], m[1]+m[4]);
+    });
+    // 飛行機
+    var b1 = bez(p,u), b2 = bez(p, Math.min(1,u+0.01)); var ang = Math.atan2(b2.y-b1.y, b2.x-b1.x);
+    ctx.save(); ctx.translate(b1.x,b1.y); ctx.rotate(ang); ctx.fillStyle='#EEF3FF'; ctx.shadowColor='rgba(238,243,255,0.8)'; ctx.shadowBlur=8;
+    ctx.beginPath(); ctx.moveTo(11,0); ctx.lineTo(-6,-3); ctx.lineTo(-9,-9); ctx.lineTo(-11,-8); ctx.lineTo(-9,-2); ctx.lineTo(-14,-1); ctx.lineTo(-14,1); ctx.lineTo(-9,2); ctx.lineTo(-11,8); ctx.lineTo(-9,9); ctx.lineTo(-6,3); ctx.closePath(); ctx.fill();
+    ctx.beginPath(); ctx.moveTo(-1,-1); ctx.lineTo(-5,-13); ctx.lineTo(-3,-13); ctx.lineTo(3,-1); ctx.closePath(); ctx.fill();
+    ctx.beginPath(); ctx.moveTo(-1,1); ctx.lineTo(-5,13); ctx.lineTo(-3,13); ctx.lineTo(3,1); ctx.closePath(); ctx.fill();
+    ctx.restore();
+    // 距離・時間の小さな計器表示（機内モニター風）
+    var km = Math.round(2990*u), mins = Math.round(260*(1-u));
+    ctx.font = '600 10px Barlow, "Avenir Next", sans-serif'; ctx.fillStyle='rgba(127,214,255,0.7)';
+    ctx.fillText('DISTANCE  '+km.toLocaleString()+' km', 16, H-18);
+    ctx.textAlign='right'; ctx.fillText('TIME TO GO  '+Math.floor(mins/60)+':'+('0'+mins%60).slice(-2), W-16, H-18); ctx.textAlign='left';
+  }
+  function loop(now){ if(running && !reduce){ draw(now); } requestAnimationFrame(loop); }
+  if('IntersectionObserver' in window){ new IntersectionObserver(function(es){ running = es[0].isIntersecting; }).observe(cv); }
+  window.addEventListener('resize', resize); resize(); if(!reduce) requestAnimationFrame(loop);
+})();
+</script>
 
 </body>
 </html>
