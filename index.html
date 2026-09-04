@@ -115,6 +115,8 @@ p { margin: 0; }
 .sec dt { font-weight: 700; }
 .sec dd { margin: 0; color: var(--body); }
 .note { font-size: 12px; color: var(--mid); line-height: 1.7; margin-top: 14px; }
+.upd { display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: baseline; margin: -4px 0 14px; font-size: 12.5px; color: var(--mid); }
+.upd b { font-weight: 700; color: var(--ink); background: var(--soft); border-left: 3px solid var(--acc); padding: 4px 10px; font-variant-numeric: tabular-nums; }
 @media (max-width: 640px) {
   .sec { grid-template-columns: 44px 1fr; gap: 8px; }
   .sec .n { font-size: 44px; }
@@ -359,6 +361,7 @@ p { margin: 0; }
       <section class="sec" id="flights"><div class="n cond">1</div><div>
         <h2>各開催回のフライトのご案内<small>Flights</small></h2>
         <p class="lead">いずれの回も、下記のフライトでのご参加をお願いしています。ご自身の出発空港の便でお申し込みください。日付を開くと便と価格が表示されます。</p>
+        <p class="upd"><b>最新更新日時：9月4日 19:30</b><span>Trip.comの価格・残り枚数を毎日 12:00 に自動更新</span></p>
       <details class="fg" open>
         <summary>
           <span class="fgd cond">10/9（金）— 10/11（日）</span>
