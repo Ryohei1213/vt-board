@@ -140,6 +140,19 @@ p { margin: 0; }
   .sec dl > div { grid-template-columns: 1fr; gap: 2px; padding: 9px 0; }
 }
 
+/* jump nav (numbered index) */
+.jump { position: sticky; top: 0; z-index: 5; background: var(--bg); border-bottom: 1px solid var(--hair); margin: 0 -24px; padding: 10px 24px; display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+.jump::-webkit-scrollbar { display: none; }
+.jump a { flex: 0 0 auto; display: inline-flex; align-items: center; gap: 8px; padding: 7px 12px 7px 9px; border: 1px solid var(--hair); color: var(--ink); text-decoration: none; font-weight: 500; font-size: 13px; letter-spacing: .02em; white-space: nowrap; transition: border-color .15s, background .15s, color .15s; }
+.jump a b { font-family: "Barlow Condensed", "Avenir Next Condensed", sans-serif; font-weight: 800; font-size: 18px; line-height: 1; color: var(--cta); min-width: 12px; text-align: center; }
+.jump a:hover { border-color: var(--ink); }
+.jump a[aria-current="true"] { background: var(--ink); border-color: var(--ink); color: #fff; }
+.jump a[aria-current="true"] b { color: #8FB4FF; }
+.jump a:focus-visible { outline: 2px solid var(--acc); outline-offset: 2px; }
+.sec { scroll-margin-top: 72px; }
+@media (max-width: 640px) { .jump { margin: 0 -18px; padding: 8px 18px; gap: 5px; } .jump a { padding: 6px 10px 6px 8px; font-size: 12px; } .jump a b { font-size: 16px; } .sec { scroll-margin-top: 64px; } }
+@media (prefers-reduced-motion: reduce) { .jump a { transition: none; } }
+
 /* flights */
 .fg { border-top: 1px solid var(--rule); }
 .fg:last-of-type { border-bottom: 1px solid var(--rule); }
@@ -392,6 +405,17 @@ p { margin: 0; }
   </div>
 </div>
 <div class="wrap">
+
+  <nav class="jump" id="jump" aria-label="セクションへ移動">
+    <a href="#flights"><b>1</b>フライト</a>
+    <a href="#purpose"><b>2</b>目的</a>
+    <a href="#okada"><b>3</b>オカダマニラ</a>
+    <a href="#dojimakai"><b>4</b>最後の夜</a>
+    <a href="#voices"><b>5</b>参加者の声</a>
+    <a href="#cost"><b>6</b>費用</a>
+    <a href="#guests"><b>7</b>ゲスト</a>
+    <a href="#faq"><b>8</b>FAQ</a>
+  </nav>
 
   <div class="main">
     <div>
@@ -865,6 +889,17 @@ p { margin: 0; }
   next.addEventListener('click',function(){ go(cur+1); });
   s.addEventListener('keydown',function(e){ if(e.key==='ArrowLeft'){ go(cur-1); e.preventDefault(); } if(e.key==='ArrowRight'){ go(cur+1); e.preventDefault(); } });
   render(0);
+})();
+</script>
+<script>
+(function(){
+  var nav=document.getElementById('jump'); if(!nav) return;
+  var links=[].slice.call(nav.querySelectorAll('a')), secs=links.map(function(a){ return document.querySelector(a.getAttribute('href')); });
+  function set(i){ links.forEach(function(a,k){ if(k===i) a.setAttribute('aria-current','true'); else a.removeAttribute('aria-current'); });
+    if(i>=0){ var a=links[i], r=a.getBoundingClientRect(), n=nav.getBoundingClientRect(); if(r.left<n.left||r.right>n.right) a.scrollIntoView({block:'nearest',inline:'center'}); } }
+  function cur(){ var y=window.scrollY+80, best=-1; secs.forEach(function(s,k){ if(s && s.offsetTop<=y) best=k; }); set(best); }
+  links.forEach(function(a,k){ a.addEventListener('click',function(){ set(k); }); });
+  window.addEventListener('scroll',cur,{passive:true}); window.addEventListener('resize',cur); cur();
 })();
 </script>
 
