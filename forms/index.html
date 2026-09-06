@@ -156,9 +156,9 @@ footer{margin:34px 18px 0;border-top:1px solid var(--line);padding-top:14px;font
   <p class="lead">目的のフォームを開いて送信してください。</p>
 </header>
 
-<section class="week" id="week" data-view="week" aria-label="定例スケジュール">
+<section class="week" id="week" data-view="month" aria-label="定例スケジュール">
   <div class="wh"><h2>定例スケジュール</h2>
-    <div class="seg" role="tablist"><button type="button" data-v="week" aria-selected="true">週</button><button type="button" data-v="month" aria-selected="false">月</button></div></div>
+    <div class="seg" role="tablist"><button type="button" data-v="week" aria-selected="false">週</button><button type="button" data-v="month" aria-selected="true">月</button></div></div>
   <div class="days" id="wdays" role="tablist"></div>
   <div id="wmonth"><div class="mnav"><button type="button" id="mprev" aria-label="前の月">‹</button><b id="mtitle"></b><button type="button" id="mnext" aria-label="次の月">›</button></div><div class="mg" id="mgrid"></div></div>
   <div class="dh" id="wdh"></div>
@@ -388,7 +388,7 @@ footer{margin:34px 18px 0;border-top:1px solid var(--line);padding-top:14px;font
       ev.preventDefault(); jump(a.getAttribute('href').slice(1));
     });})(as[i]);}
   }
-  render();
+  renderMonth(); render();
 })();
 </script>
 
