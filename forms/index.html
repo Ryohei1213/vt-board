@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>VERION 申込みフォーム</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="description" content="VERIONパートナー向け 申込みフォームの入口。イベント参加・新規説明会枠の申請・名刺申請。">
+<link rel="canonical" href="https://verion-gaming.jp/forms/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="VERION">
+<meta property="og:title" content="VERION 申込みフォーム">
+<meta property="og:description" content="VERIONパートナー向け 申込みフォームの入口。イベント参加・新規説明会枠の申請・名刺申請。">
+<meta property="og:url" content="https://verion-gaming.jp/forms/">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary">
+<link rel="icon" type="image/png" sizes="64x64" href="/assets/favicon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+</head>
+<body>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap">
+<style>
+:root{
+  --bg:#FFFFFF; --ink:#0F1B2D; --mute:#6A655E; --line:#E4DED5; --panel:#F7F4EE;
+  --acc:#E88A2E; --acc-ink:#FFFFFF; --acc-soft:#FCEFE0; --tab:#F3EFE8;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#12151A; --ink:#F1EDE6; --mute:#A39D94; --line:#2C323B; --panel:#1A1F26;
+    --acc:#F09A3E; --acc-ink:#12151A; --acc-soft:#2A2118; --tab:#1A1F26;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#12151A; --ink:#F1EDE6; --mute:#A39D94; --line:#2C323B; --panel:#1A1F26;
+  --acc:#F09A3E; --acc-ink:#12151A; --acc-soft:#2A2118; --tab:#1A1F26;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans JP",system-ui,-apple-system,"Hiragino Sans",sans-serif;font-size:17px;line-height:1.7;font-feature-settings:"palt"}
+a{color:inherit}
+.cond{font-family:"Barlow Condensed","Arial Narrow",sans-serif}
+.wrap{max-width:520px;margin:0 auto;padding:0 0 calc(40px + env(safe-area-inset-bottom))}
+
+/* header */
+header{padding:22px 18px 14px}
+.brand{font-family:"Barlow Condensed","Arial Narrow",sans-serif;font-weight:700;letter-spacing:.2em;font-size:14px;color:var(--mute)}
+.brand b{color:var(--acc);font-size:19px;margin-right:8px}
+h1{margin:4px 0 4px;font-size:33px;line-height:1.15;letter-spacing:.01em}
+.lead{margin:0;color:var(--mute);font-size:15.5px}
+
+/* sticky tabs */
+nav.tabs{position:sticky;top:0;z-index:5;display:grid;grid-template-columns:repeat(3,1fr);background:var(--bg);border-top:4px solid var(--ink);border-bottom:1px solid var(--line);padding:0 8px}
+nav.tabs a{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:60px;text-decoration:none;font-size:15.5px;font-weight:700;line-height:1.2;letter-spacing:.02em;color:var(--ink);border-bottom:3px solid transparent}
+nav.tabs a small{font-family:"Barlow Condensed",sans-serif;font-weight:600;font-size:13px;letter-spacing:.16em;color:var(--mute);margin-top:3px}
+nav.tabs a.on{border-bottom-color:var(--acc)}
+nav.tabs a.on small{color:var(--acc)}
+
+/* sections */
+section{padding:26px 18px 6px;scroll-margin-top:64px}
+.sh{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:4px}
+.sh h2{margin:0;font-size:22px;letter-spacing:.02em}
+.sh .en{font-family:"Barlow Condensed",sans-serif;font-weight:600;letter-spacing:.2em;font-size:13px;color:var(--acc);text-transform:uppercase}
+.sd{margin:0 0 14px;color:var(--mute);font-size:15px}
+
+/* cards */
+.card{border:1px solid var(--line);background:var(--panel);padding:18px 16px 16px;display:grid;gap:14px;border-radius:4px}
+.card + .card{margin-top:12px}
+.card h3{margin:0;font-size:22px;line-height:1.3;letter-spacing:.01em}
+.card h3 small{display:block;font-size:14.5px;font-weight:400;color:var(--mute);margin-top:3px;line-height:1.5}
+.row{display:grid;gap:3px}
+.row .k{font-family:"Barlow Condensed","Arial Narrow",sans-serif;font-weight:600;letter-spacing:.14em;font-size:13.5px;color:var(--acc);text-transform:uppercase}
+.row .v{font-size:16.5px}
+.slots{display:grid;gap:8px}
+.slot{display:grid;gap:1px;padding-left:12px;border-left:2px solid var(--line)}
+.slot .t{font-family:"Barlow Condensed","Arial Narrow",sans-serif;font-weight:700;font-size:21px;letter-spacing:.02em;font-variant-numeric:tabular-nums;line-height:1.2}
+.slot .n{font-size:15px;color:var(--mute);line-height:1.5}
+.warn{background:var(--acc-soft);border-left:3px solid var(--acc);padding:10px 12px;font-size:15px;line-height:1.6;border-radius:0 4px 4px 0}
+.btn{display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--acc);color:var(--acc-ink);text-decoration:none;font-weight:700;font-size:18.5px;min-height:58px;padding:12px 18px;letter-spacing:.04em;border-radius:4px;-webkit-tap-highlight-color:transparent}
+.btn:active{filter:brightness(.92)}
+.btn:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+.btn .en{font-family:"Barlow Condensed",sans-serif;font-weight:600;font-size:14px;letter-spacing:.18em;opacity:.85}
+
+footer{margin:34px 18px 0;border-top:1px solid var(--line);padding-top:14px;font-size:14px;color:var(--mute);display:grid;gap:4px}
+</style>
+
+<div class="wrap">
+<header>
+  <div class="brand"><b>VERION</b>PARTNER FORMS</div>
+  <h1>申込みフォーム</h1>
+  <p class="lead">目的のフォームを開いて送信してください。</p>
+</header>
+
+<nav class="tabs" aria-label="セクション">
+  <a href="#events" class="on">イベント参加<small>EVENTS</small></a>
+  <a href="#intro">新規説明会枠<small>NEW GUESTS</small></a>
+  <a href="#misc">各種申請<small>REQUESTS</small></a>
+</nav>
+
+<section id="events">
+  <div class="sh"><h2>イベント参加申込み</h2><span class="en">Events</span></div>
+  <p class="sd">パートナー本人、またはパートナーからのご紹介者が参加できる定例イベントです。</p>
+
+  <article class="card">
+    <h3>代表勉強会公開収録<small>参加申込み</small></h3>
+    <div class="row"><div class="k">概要</div><div class="v">代表が登壇する勉強会を公開収録する回です。パートナーが紹介者を連れて参加でき、代表の考え方を直接聞けます。テーマは毎回異なり、多岐に渡ります。</div></div>
+    <div class="row"><div class="k">開催</div>
+      <div class="slots">
+        <div class="slot"><div class="t">毎週土曜 10:00–12:00</div></div>
+        <div class="slot"><div class="t">第2・第4月曜 13:00–15:00</div></div>
+      </div>
+    </div>
+    <div class="row"><div class="k">対象</div><div class="v">VERIONパートナー、およびパートナーからのご紹介者</div></div>
+    <div class="row"><div class="k">会場</div><div class="v">TKP東京駅カンファレンスセンター - 八重洲</div></div>
+    <div class="warn">収録開始後の入場と途中退室はできません。時間に余裕をもってお越しください。</div>
+    <a class="btn" href="https://plain-noodle-6ad.notion.site/3a00d092c36f80e48babcbbd9428f83a?pvs=105" target="_blank" rel="noopener">申請をする<span class="en">NOTION ↗</span></a>
+  </article>
+
+  <article class="card">
+    <h3>AI活用ワークショップ 参加申込み<small>経営者・管理職のための</small></h3>
+    <div class="row"><div class="k">概要</div><div class="v">経営者・管理職向けに、AIを仕事で使うための実践ワークショップです。Macのセットアップから始め、その場で手を動かして学びます。</div></div>
+    <div class="row"><div class="k">開催</div>
+      <div class="slots">
+        <div class="slot"><div class="t">毎週水曜 16:00–18:00</div></div>
+        <div class="slot"><div class="t">毎週土曜 16:00–18:00</div></div>
+        <div class="slot"><div class="t">毎週日曜 10:00–12:00</div></div>
+      </div>
+    </div>
+    <div class="row"><div class="k">会場</div><div class="v">久松町オフィス</div></div>
+    <div class="row"><div class="k">持ち物</div><div class="v">Mac OS のパソコンが必須</div></div>
+    <div class="row"><div class="k">確定</div><div class="v">申込みは先着順で、確定ではありません。参加が確定した方に追って連絡します</div></div>
+    <a class="btn" href="https://plain-noodle-6ad.notion.site/3c00d092c36f8018846dc7f64788f03b?pvs=105" target="_blank" rel="noopener">申請をする<span class="en">NOTION ↗</span></a>
+  </article>
+
+  <article class="card">
+    <h3>全体会議 参加申請<small>パートナーが全員集まり、事業について議論する場</small></h3>
+    <div class="row"><div class="k">概要</div><div class="v">パートナーが全員集まり、事業の進捗と方針を議論する会議です。昼と夜の2部制で、終了後に懇親会があります。</div></div>
+    <div class="row"><div class="k">開催</div>
+      <div class="slots">
+        <div class="slot"><div class="t">第1・第3月曜</div><div class="n">各回 ☀️昼の部／🌙夜の部</div></div>
+      </div>
+    </div>
+    <div class="row"><div class="k">会場（全体会議・懇親会）</div><div class="v">TKP東京駅カンファレンスセンター - 八重洲</div></div>
+    <div class="row"><div class="k">懇親会</div><div class="v">同日開催、参加費無料。全体会議の参加者のみ。事前予約するため、参加できる日だけ回答してください</div></div>
+    <a class="btn" href="https://plain-noodle-6ad.notion.site/2a80d092c36f801bb561e0f0893f7162?pvs=105" target="_blank" rel="noopener">申請をする<span class="en">NOTION ↗</span></a>
+  </article>
+</section>
+
+<section id="intro">
+  <div class="sh"><h2>新規説明会枠への申請</h2><span class="en">New Guests</span></div>
+  <p class="sd">新しくVERIONを紹介したい方がいるときに使います。来場前の情報が多いほど、参加率とその後の確度が上がります。</p>
+
+  <article class="card">
+    <h3>新規来場者 事前情報申告<small>説明会に来る方の情報を事前に共有</small></h3>
+    <div class="row"><div class="k">概要</div><div class="v">説明会に来場する方の情報を、事前に運営へ共有するフォームです。職業や関係性、期待値が分かると、当日の対応とその後の確度が上がります。</div></div>
+    <div class="row"><div class="k">説明会 ｜ 久松町オフィス</div>
+      <div class="slots">
+        <div class="slot"><div class="t">13:00 市場説明会</div><div class="n">水・金・土・日。女性向け（男性の参加は非推奨）</div></div>
+        <div class="slot"><div class="t">19:30 事業説明会</div><div class="n">水・金のみ。男性向け</div></div>
+      </div>
+    </div>
+    <div class="row"><div class="k">個別説明枠 ｜ 丸の内オフィス</div>
+      <div class="slots">
+        <div class="slot"><div class="t">① 10:00–12:00</div><div class="n">毎週火・金</div></div>
+        <div class="slot"><div class="t">② 13:00–15:00</div><div class="n">毎週火・金</div></div>
+        <div class="slot"><div class="t">③ 15:30–17:30</div><div class="n">毎週火・金、第2・第4月曜</div></div>
+        <div class="slot"><div class="t">④ 18:00–20:00</div><div class="n">毎週火・金、第2・第4月曜</div></div>
+      </div>
+    </div>
+    <div class="warn">男性を紹介する場合は、夜の部（事業説明会）または個別説明枠をおすすめします。</div>
+    <a class="btn" href="https://plain-noodle-6ad.notion.site/2a90d092c36f80a7b658fb129d7cbc08?pvs=105" target="_blank" rel="noopener">申請をする<span class="en">NOTION ↗</span></a>
+  </article>
+
+  <article class="card">
+    <h3>営業担当 訪問依頼<small>説明会に来られない方へ、営業担当が伺います</small></h3>
+    <div class="row"><div class="k">概要</div><div class="v">説明会に来られない方のために、営業担当が直接会いに行って説明します。日時の希望を第3希望まで出してください。</div></div>
+    <div class="row"><div class="k">会場</div><div class="v">要相談</div></div>
+    <div class="row"><div class="k">日時の書き方</div><div class="v">「◯月◯日」の日付と、開始希望時刻まで書いてください</div></div>
+    <a class="btn" href="https://plain-noodle-6ad.notion.site/3390d092c36f80029786ec80ea32946b?pvs=105" target="_blank" rel="noopener">申請をする<span class="en">NOTION ↗</span></a>
+  </article>
+</section>
+
+<section id="misc">
+  <div class="sh"><h2>各種申請</h2><span class="en">Requests</span></div>
+  <p class="sd">パートナー活動に使う備品などの申請です。</p>
+
+  <article class="card">
+    <h3>名刺申請<small>VERION活動用の名刺</small></h3>
+    <div class="row"><div class="k">概要</div><div class="v">VERIONの活動用名刺を作るフォームです。氏名（ローマ字）と契約プラン名が標準で、希望すれば連絡先や紹介リンクのQRも載せられます。</div></div>
+    <div class="row"><div class="k">費用</div>
+      <div class="slots">
+        <div class="slot"><div class="t">初回 100部　無料</div></div>
+        <div class="slot"><div class="t">以後 100部ごと　2,000円</div></div>
+      </div>
+    </div>
+    <div class="row"><div class="k">到着</div><div class="v">申請から1週間程度でオフィスに届きます</div></div>
+    <a class="btn" href="https://plain-noodle-6ad.notion.site/2ae0d092c36f807a8356d2ade11dc4ec?pvs=105" target="_blank" rel="noopener">申請をする<span class="en">NOTION ↗</span></a>
+  </article>
+</section>
+
+<footer>
+  <div>各フォームは Notion で開きます。パスワードなど機密性の高い情報は入力しないでください。</div>
+  <div>開催日の候補はフォーム内の最新の選択肢が正です。</div>
+  <div>VERION JAPAN　2026-09-06 更新</div>
+</footer>
+</div>
+
+<script>
+(function(){
+  var tabs=[].slice.call(document.querySelectorAll('nav.tabs a'));
+  var secs=tabs.map(function(a){return document.querySelector(a.getAttribute('href'));});
+  function on(){
+    var y=window.scrollY+120, i=0;
+    secs.forEach(function(s,k){ if(s.offsetTop<=y) i=k; });
+    tabs.forEach(function(a,k){ a.classList.toggle('on',k===i); });
+  }
+  window.addEventListener('scroll',on,{passive:true}); on();
+})();
+</script>
+
+</body>
+</html>
