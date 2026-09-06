@@ -222,7 +222,7 @@ footer{margin:34px 18px 0;border-top:1px solid var(--line);padding-top:14px;font
 
 <section id="intro">
   <div class="sh"><h2>新規説明会枠への申請</h2><span class="en">New Guests</span></div>
-  <p class="sd">新しくVERIONを紹介したい方がいるときに使います。来場前の情報が多いほど、参加率とその後の確度が上がります。</p>
+  <p class="sd">新しくVERIONを紹介したい方がいるときに使います。来場前の情報が多いほど、参加率とその後の確度が上がります。説明会に参加した方の次のステップとして、Zoom説明会もここから申し込めます。</p>
 
   <article class="card" id="f-guest">
     <h3>新規来場者 事前情報申告<small>説明会に来る方の情報を事前に共有</small></h3>
@@ -251,6 +251,21 @@ footer{margin:34px 18px 0;border-top:1px solid var(--line);padding-top:14px;font
     <div class="row"><div class="k">会場</div><div class="v">要相談</div></div>
     <div class="row"><div class="k">日時の書き方</div><div class="v">「◯月◯日」の日付と、開始希望時刻まで書いてください</div></div>
     <a class="btn" href="https://plain-noodle-6ad.notion.site/3390d092c36f80029786ec80ea32946b?pvs=105" target="_blank" rel="noopener">申請をする<span class="en">NOTION ↗</span></a>
+  </article>
+
+  <article class="card" id="f-zoom">
+    <h3>Zoom説明会 参加申込み<small>パートナー説明会に参加した方限定</small></h3>
+    <div class="row"><div class="k">概要</div><div class="v">パートナー説明会に参加した方だけが受けられる、オンラインの説明会です。顔出しは不要で、自宅から参加できます。</div></div>
+    <div class="row"><div class="k">開催</div>
+      <div class="slots">
+        <div class="slot"><div class="t">毎週火曜 21:00–22:30</div></div>
+        <div class="slot"><div class="t">毎週土曜 21:00–22:30</div></div>
+      </div>
+    </div>
+    <div class="row"><div class="k">会場</div><div class="v">Zoom（登録したメールアドレス宛に、後日リンクを送付）</div></div>
+    <div class="row"><div class="k">対象</div><div class="v">VERION「パートナー説明会」に参加した方。参加履歴が確認できない場合は参加できません</div></div>
+    <div class="warn">申込み時に機密保持への同意があります。説明会で開示される資料・数値・構想などの未公開情報は、第三者に開示・共有できません。</div>
+    <a class="btn" href="https://plain-noodle-6ad.notion.site/2d10d092c36f80ecb128d2a94438651b?pvs=105" target="_blank" rel="noopener">申請をする<span class="en">NOTION ↗</span></a>
   </article>
 </section>
 
@@ -290,11 +305,11 @@ footer{margin:34px 18px 0;border-top:1px solid var(--line);padding-top:14px;font
     [ {n:'全体会議（昼の部）',p:TKP,s:'12:00',e:'13:00',c:1,to:'f-zenkai'},{n:'懇親会（昼の部）',s:'13:00',e:'14:30',c:1,to:'f-zenkai'},
       {n:'全体会議（夜の部）',p:TKP,s:'19:00',e:'20:00',c:1,to:'f-zenkai'},{n:'懇親会（夜の部）',s:'20:30',e:'22:00',c:1,to:'f-zenkai'} ],
     [ {n:'代表勉強会 公開収録',p:TKP,s:'13:00',e:'15:00',c:2,to:'f-kokai'}, ind('③','15:30','17:30'), ind('④','18:00','20:00') ],
-    [ ind('①','10:00','12:00'), ind('②','13:00','15:00'), ind('③','15:30','17:30'), ind('④','18:00','20:00'), {n:'zoom説明会',s:'21:00',e:'22:30',c:5,to:'f-guest'} ],
+    [ ind('①','10:00','12:00'), ind('②','13:00','15:00'), ind('③','15:30','17:30'), ind('④','18:00','20:00'), {n:'Zoom説明会',p:'オンライン',s:'21:00',e:'22:30',c:5,to:'f-zoom'} ],
     jo.concat([ai('16:00','18:00'), {n:'個別説明',p:'久松町オフィス',s:'19:30',e:'21:00',c:6,to:'f-guest'}]),
     [ ],
     [ ind('①','10:00','12:00'), ind('②','13:00','15:00'), ind('③','15:30','17:30'), ind('④','18:00','20:00') ],
-    [ {n:'代表勉強会 公開収録',p:TKP,s:'10:00',e:'12:00',c:2,to:'f-kokai'} ].concat(jo,[ai('16:00','18:00'), {n:'zoom説明会',s:'21:00',e:'22:30',c:5,to:'f-guest'}]),
+    [ {n:'代表勉強会 公開収録',p:TKP,s:'10:00',e:'12:00',c:2,to:'f-kokai'} ].concat(jo,[ai('16:00','18:00'), {n:'Zoom説明会',p:'オンライン',s:'21:00',e:'22:30',c:5,to:'f-zoom'}]),
     [ ai('10:00','12:00') ].concat(jo)
   ];
   var HOL={'2026-09-21':'敬老の日','2026-09-22':'休日','2026-09-23':'秋分の日','2026-10-12':'スポーツの日','2026-11-03':'文化の日','2026-11-23':'勤労感謝の日',
@@ -307,7 +322,7 @@ footer{margin:34px 18px 0;border-top:1px solid var(--line);padding-top:14px;font
     {c:4,n:'市場説明会・パートナー説明会',f:'新規来場者 事前情報申告',to:'f-guest'},
     {c:3,n:'個別説明枠①〜④（丸の内）',f:'新規来場者 事前情報申告',to:'f-guest'},
     {c:6,n:'個別説明（久松町）',f:'新規来場者 事前情報申告',to:'f-guest'},
-    {c:5,n:'zoom説明会',f:'新規来場者 事前情報申告',to:'f-guest'}
+    {c:5,n:'Zoom説明会（オンライン）',f:'Zoom説明会 参加申込み',to:'f-zoom'}
   ];
   var MIN=new Date(2026,8,1), MAX=new Date(2026,11,1);   // 表示範囲: 2026年9月〜12月（年内）
   var jp=['日','月','火','水','木','金','土'];
