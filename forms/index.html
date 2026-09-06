@@ -368,13 +368,10 @@ footer{margin:34px 18px 0;border-top:1px solid var(--line);padding-top:14px;font
     var label=(sel.getMonth()+1)+'月'+sel.getDate()+'日（'+jp[sel.getDay()]+'）';
     var head='<b>'+label+'<span class="tg">'+(isT?'　今日':'')+(hol?'　'+hol:'')+'</span></b>', cols=colsOf(sel);
     if(sel.getDay()===1){
-      var auto=monCol(sel), view=(monAlt===null?(auto<0?0:auto):monAlt);
-      head='<b>'+label+'<span class="tg">　'+(view===0?'第1・3週':'第2・4週')+(auto<0?'（第5週・定例なし）':'')+(hol?'　'+hol:'')+'</span></b>'
-          +'<button type="button" id="wswap">'+(view===0?'第2・4週を見る':'第1・3週を見る')+'</button>';
-      cols=(auto<0&&monAlt===null)?[]:[view];
+      var auto=monCol(sel);
+      head='<b>'+label+'<span class="tg">'+(isT?'　今日':'')+(auto===0?'　第1・3週':auto===1?'　第2・4週':'　第5週')+(hol?'　'+hol:'')+'</span></b>';
     }
     dh.innerHTML=head;
-    var sw=document.getElementById('wswap'); if(sw) sw.addEventListener('click',function(){var auto=monCol(sel);var cur=(monAlt===null?(auto<0?0:auto):monAlt);monAlt=1-cur;render();});
     var items=[]; if(sel>=MIN && sel<new Date(2027,0,1)) cols.forEach(function(c){items=items.concat(ev[c]);}); items.sort(function(a,b){return a.s<b.s?-1:a.s>b.s?1:0;});
     if(!items.length){ list.innerHTML='<div class="empty">'+((sel<MIN||sel>=new Date(2027,0,1))?'年内（2026年9〜12月）の予定を表示しています':'定例なし')+'</div>'; return; }
     list.innerHTML=items.map(function(e){return '<a class="it c'+e.c+'" href="#'+e.to+'"><span class="t">'+e.s+'–'+e.e+'</span><span class="n">'+e.n+(e.p?'<small>'+e.p+'</small>':'')+'</span><span class="go">申請へ ↓</span></a>';}).join('');
