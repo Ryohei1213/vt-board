@@ -233,6 +233,27 @@ p { margin: 0; }
 .world p { font-size: 14px; color: var(--body); line-height: 1.8; }
 @media (max-width: 640px) { .world article { grid-template-columns: 1fr; gap: 10px; } }
 
+/* voices: video slider */
+.vslider { margin: 4px 0 20px; }
+.vtrack { display: flex; gap: 12px; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+.vtrack::-webkit-scrollbar { display: none; }
+.vslide { flex: 0 0 100%; scroll-snap-align: start; margin: 0; }
+.vph { position: relative; aspect-ratio: 16 / 9; overflow: hidden; background: #0F1B2D; }
+.vph iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.vslide figcaption { font-size: 12px; color: var(--mid); padding-top: 8px; display: flex; justify-content: space-between; gap: 12px; }
+.vnav { display: flex; align-items: center; gap: 12px; margin-top: 10px; }
+.vbtn { width: 40px; height: 40px; flex: 0 0 auto; border: 1px solid var(--ink); background: var(--bg); color: var(--ink); cursor: pointer; display: inline-flex; align-items: center; justify-content: center; padding: 0; }
+.vbtn svg { width: 16px; height: 16px; display: block; }
+.vbtn:hover { background: var(--cta); border-color: var(--cta); color: #fff; }
+.vbtn:focus-visible { outline: 2px solid var(--acc); outline-offset: 2px; }
+.vbtn:disabled { opacity: .25; cursor: default; background: var(--bg); border-color: var(--ink); color: var(--ink); }
+.vdots { display: flex; gap: 6px; flex: 1; align-items: center; }
+.vdots button { width: 8px; height: 8px; border-radius: 4px; border: 0; padding: 0; background: var(--hair); cursor: pointer; transition: width .2s, background .2s; }
+.vdots button[aria-selected="true"] { background: var(--cta); width: 24px; }
+.vcount { font-size: 20px; line-height: 1; color: var(--mid); letter-spacing: .04em; }
+.vcount b { color: var(--ink); font-weight: inherit; }
+@media (prefers-reduced-motion: reduce) { .vdots button { transition: none; } }
+
 /* voices */
 .voices { display: grid; gap: 0; }
 .voice { padding: 14px 0; border-top: 1px solid var(--hair); display: grid; grid-template-columns: 28px 1fr; gap: 12px; }
@@ -608,6 +629,23 @@ p { margin: 0; }
 
       <section class="sec" id="voices"><div class="n cond">5</div><div>
         <h2>参加者の声<small>Voices</small></h2>
+<!--VOICES_VIDEO_START-->
+        <div class="vslider" id="vslider" aria-roledescription="carousel" aria-label="参加者インタビュー">
+          <div class="vtrack" id="vtrack">
+            <figure class="vslide"><div class="vph"><iframe src="https://player.vimeo.com/video/1224339189?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&amp;title=0&amp;byline=0&amp;portrait=0&amp;dnt=1" loading="lazy" title="山岸さんインタビュー" allow="autoplay; fullscreen; picture-in-picture; encrypted-media" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div><figcaption><span>山岸さんインタビュー</span><span>研修参加パートナー</span></figcaption></figure>
+            <figure class="vslide"><div class="vph"><iframe src="https://player.vimeo.com/video/1224328030?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&amp;title=0&amp;byline=0&amp;portrait=0&amp;dnt=1" loading="lazy" title="濱本さんインタビュー" allow="autoplay; fullscreen; picture-in-picture; encrypted-media" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div><figcaption><span>濱本さんインタビュー</span><span>研修参加パートナー</span></figcaption></figure>
+            <figure class="vslide"><div class="vph"><iframe src="https://player.vimeo.com/video/1224223808?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&amp;title=0&amp;byline=0&amp;portrait=0&amp;dnt=1" loading="lazy" title="小柳さんインタビュー" allow="autoplay; fullscreen; picture-in-picture; encrypted-media" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div><figcaption><span>小柳さんインタビュー</span><span>研修参加パートナー</span></figcaption></figure>
+            <figure class="vslide"><div class="vph"><iframe src="https://player.vimeo.com/video/1224222393?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&amp;title=0&amp;byline=0&amp;portrait=0&amp;dnt=1" loading="lazy" title="橋本さんインタビュー" allow="autoplay; fullscreen; picture-in-picture; encrypted-media" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div><figcaption><span>橋本さんインタビュー</span><span>研修参加パートナー</span></figcaption></figure>
+            <figure class="vslide"><div class="vph"><iframe src="https://player.vimeo.com/video/1224220176?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&amp;title=0&amp;byline=0&amp;portrait=0&amp;dnt=1" loading="lazy" title="永田さんインタビュー" allow="autoplay; fullscreen; picture-in-picture; encrypted-media" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div><figcaption><span>永田さんインタビュー</span><span>研修参加パートナー</span></figcaption></figure>
+          </div>
+          <div class="vnav">
+            <button type="button" class="vbtn prev" aria-label="前の動画"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 2 4 8l6 6"/></svg></button>
+            <div class="vdots" role="tablist" aria-label="動画を選択"></div>
+            <span class="vcount cond" aria-live="polite"><b>1</b> / 5</span>
+            <button type="button" class="vbtn next" aria-label="次の動画"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 2 6 6-6 6"/></svg></button>
+          </div>
+        </div>
+<!--VOICES_VIDEO_END-->
         <div class="voices">
           <div class="voice"><span class="qm cond">“</span><div><p class="q">この事業が成功するにあたり、よりお手伝いができる事があればしたいと思った。みんなで造り上げたいという気持ちがより大きくなった。</p><div class="who">研修参加パートナー</div></div></div>
           <div class="voice"><span class="qm cond">“</span><div><p class="q">体験することが大事で、その場の雰囲気というか、空気感を実感出来たことで、次も行きたいとなりました。</p><div class="who">研修参加パートナー</div></div></div>
@@ -790,6 +828,42 @@ p { margin: 0; }
   function loop(now){ if(running && !reduce){ draw(now); } requestAnimationFrame(loop); }
   if('IntersectionObserver' in window){ new IntersectionObserver(function(es){ running = es[0].isIntersecting; }).observe(cv); }
   window.addEventListener('resize', resize); resize(); if(!reduce) requestAnimationFrame(loop);
+})();
+</script>
+<script>
+(function(){
+  var s=document.getElementById('vslider'); if(!s) return;
+  var t=s.querySelector('.vtrack'), slides=[].slice.call(t.children), dots=s.querySelector('.vdots'),
+      cnt=s.querySelector('.vcount b'), prev=s.querySelector('.prev'), next=s.querySelector('.next'), cur=0, tm=null;
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  slides.forEach(function(_,k){
+    var b=document.createElement('button'); b.type='button'; b.setAttribute('role','tab');
+    b.setAttribute('aria-label','動画 '+(k+1)); b.addEventListener('click',function(){ go(k); }); dots.appendChild(b);
+  });
+  function pauseAll(except){
+    slides.forEach(function(sl,k){ if(k===except) return; var f=sl.querySelector('iframe');
+      if(f&&f.contentWindow){ try{ f.contentWindow.postMessage(JSON.stringify({method:'pause'}),'https://player.vimeo.com'); }catch(e){} } });
+  }
+  function render(k){
+    cur=k; cnt.textContent=k+1; prev.disabled=(k===0); next.disabled=(k===slides.length-1);
+    [].forEach.call(dots.children,function(d,i){ d.setAttribute('aria-selected', i===k?'true':'false'); });
+    pauseAll(k);
+  }
+  function go(k){
+    k=Math.max(0,Math.min(slides.length-1,k));
+    t.scrollTo({left: slides[k].offsetLeft - slides[0].offsetLeft, behavior: reduce?'auto':'smooth'});
+    render(k);
+  }
+  function sync(){
+    var x=t.scrollLeft, best=0, bd=Infinity;
+    slides.forEach(function(sl,k){ var d=Math.abs((sl.offsetLeft - slides[0].offsetLeft)-x); if(d<bd){ bd=d; best=k; } });
+    if(best!==cur) render(best);
+  }
+  t.addEventListener('scroll',function(){ clearTimeout(tm); tm=setTimeout(sync,80); },{passive:true});
+  prev.addEventListener('click',function(){ go(cur-1); });
+  next.addEventListener('click',function(){ go(cur+1); });
+  s.addEventListener('keydown',function(e){ if(e.key==='ArrowLeft'){ go(cur-1); e.preventDefault(); } if(e.key==='ArrowRight'){ go(cur+1); e.preventDefault(); } });
+  render(0);
 })();
 </script>
 
