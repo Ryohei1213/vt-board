@@ -111,14 +111,6 @@ section{padding:26px 18px 6px;scroll-margin-top:64px}
 .mg .dots{display:flex;flex-wrap:wrap;justify-content:center;gap:2px;max-width:30px}
 .mg .dots i{width:6px;height:6px;border-radius:50%;background:var(--c,var(--line))}
 .mg .hn{font-size:9px;font-weight:500;line-height:1.1;color:#C8322B;text-align:center;letter-spacing:-.02em}
-/* legend */
-.leg{display:grid;grid-template-columns:1fr;gap:4px;padding:2px 12px 12px}
-.leg a{display:grid;grid-template-columns:12px 1fr;gap:0 8px;align-items:baseline;text-decoration:none;color:inherit;font-size:14.5px;line-height:1.35;padding:6px 8px;border-radius:3px;background:var(--bg);border:1px solid var(--line);-webkit-tap-highlight-color:transparent}
-.leg a i{width:10px;height:10px;border-radius:50%;background:var(--c,var(--line));display:inline-block;position:relative;top:1px}
-.leg a b{font-weight:600}
-.leg a small{font-size:12.5px;color:var(--mute);line-height:1.3;text-align:right}
-@media (max-width:420px){ .leg a{grid-template-columns:12px 1fr} .leg a small{grid-column:2;text-align:left} }
-.leg .lt{grid-column:1 / -1;font-family:"Barlow Condensed",sans-serif;font-weight:600;font-size:12px;letter-spacing:.14em;color:var(--mute);padding:4px 0 0}
 .mnav button:disabled{opacity:.3;cursor:default}
 .week .range{padding:0 14px 8px;font-size:12.5px;color:var(--mute)}
 /* day list */
@@ -138,7 +130,7 @@ section{padding:26px 18px 6px;scroll-margin-top:64px}
 @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .week .c1{--c:#8FB4FF} }
 :root[data-theme="dark"] .week .c1{--c:#8FB4FF}
 @media (max-width:380px){ .week .it{grid-template-columns:1fr auto;gap:0 8px} .week .it .t,.week .it .n{grid-column:1} .week .it .go{grid-column:2;grid-row:1 / span 2} }
-.week[data-view="month"] #wdays{display:none}.week[data-view="week"] #wmonth,.week[data-view="week"] #wleg{display:none}
+.week[data-view="month"] #wdays{display:none}.week[data-view="week"] #wmonth{display:none}
 /* jump target highlight */
 .card{scroll-margin-top:72px}
 @keyframes hit{0%{box-shadow:0 0 0 3px var(--acc)}100%{box-shadow:0 0 0 0 transparent}}
@@ -160,7 +152,6 @@ footer{margin:34px 18px 0;border-top:1px solid var(--line);padding-top:14px;font
     <div class="seg" role="tablist"><button type="button" data-v="week" aria-selected="true">週</button><button type="button" data-v="month" aria-selected="false">月</button></div></div>
   <div class="days" id="wdays" role="tablist"></div>
   <div id="wmonth"><div class="mnav"><button type="button" id="mprev" aria-label="前の月">‹</button><b id="mtitle"></b><button type="button" id="mnext" aria-label="次の月">›</button></div><div class="mg" id="mgrid"></div></div>
-  <div class="leg" id="wleg"></div>
   <div class="dh" id="wdh"></div>
   <div class="list" id="wlist"></div>
 </section>
@@ -315,15 +306,6 @@ footer{margin:34px 18px 0;border-top:1px solid var(--line);padding-top:14px;font
   var HOL={'2026-09-21':'敬老の日','2026-09-22':'休日','2026-09-23':'秋分の日','2026-10-12':'スポーツの日','2026-11-03':'文化の日','2026-11-23':'勤労感謝の日',
            '2027-01-01':'元日','2027-01-11':'成人の日','2027-02-11':'建国記念の日','2027-02-23':'天皇誕生日','2027-03-21':'春分の日','2027-03-22':'振替休日',
            '2027-04-29':'昭和の日','2027-05-03':'憲法記念日','2027-05-04':'みどりの日','2027-05-05':'こどもの日','2027-07-19':'海の日','2027-08-11':'山の日'};
-  var LEG=[
-    {c:1,n:'全体会議・懇親会',f:'全体会議 参加申請',to:'f-zenkai'},
-    {c:2,n:'代表勉強会 公開収録',f:'公開収録 参加申込み',to:'f-kokai'},
-    {c:7,n:'AIワークショップ',f:'AI活用ワークショップ 参加申込み',to:'f-ai'},
-    {c:4,n:'市場説明会・パートナー説明会',f:'新規来場者 事前情報申告',to:'f-guest'},
-    {c:3,n:'個別説明枠①〜④（丸の内）',f:'新規来場者 事前情報申告',to:'f-guest'},
-    {c:6,n:'個別説明（久松町）',f:'新規来場者 事前情報申告',to:'f-guest'},
-    {c:5,n:'Zoom説明会（オンライン）',f:'Zoom説明会 参加申込み',to:'f-zoom'}
-  ];
   var MIN=new Date(2026,8,1), MAX=new Date(2026,11,1);   // 表示範囲: 2026年9月〜12月（年内）
   var jp=['日','月','火','水','木','金','土'];
   var now=new Date(), today=new Date(now.getFullYear(),now.getMonth(),now.getDate());
@@ -336,15 +318,12 @@ footer{margin:34px 18px 0;border-top:1px solid var(--line);padding-top:14px;font
 
   var root=document.getElementById('week'), tabs=document.getElementById('wdays'), dh=document.getElementById('wdh'), list=document.getElementById('wlist');
   var mgrid=document.getElementById('mgrid'), mtitle=document.getElementById('mtitle');
-  var mon=new Date(today); mon.setDate(today.getDate()-((today.getDay()+6)%7));   // 今週の月曜
+  var mon=new Date(today);   // 週タブの起点＝今日（今日から7日間）
   var sel=new Date(today);                                                          // 選択日
   var mview=new Date(today.getFullYear(),today.getMonth(),1);                       // 表示中の月
   var monAlt=null;  // 月曜の第1・3／第2・4 手動切替（null=日付どおり）
   if(mview<MIN) mview=new Date(MIN); if(mview>MAX) mview=new Date(MAX);
   function jump(id){ var t=document.getElementById(id); if(!t) return; t.scrollIntoView({behavior:'smooth',block:'start'}); t.classList.remove('hit'); void t.offsetWidth; t.classList.add('hit'); }
-  var leg=document.getElementById('wleg');
-  leg.innerHTML='<div class="lt">色の見方</div>'+LEG.map(function(l){return '<a class="c'+l.c+'" href="#'+l.to+'"><i></i><b>'+l.n+'</b></a>';}).join('');
-  var la=leg.querySelectorAll('a'); for(var i=0;i<la.length;i++){(function(a){a.addEventListener('click',function(e){e.preventDefault();jump(a.getAttribute('href').slice(1));});})(la[i]);}
 
   // 週タブ
   for(var i=0;i<7;i++){(function(i){
