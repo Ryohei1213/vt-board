@@ -82,6 +82,33 @@ section{padding:26px 18px 6px;scroll-margin-top:64px}
 .btn:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
 .btn .en{font-family:"Barlow Condensed",sans-serif;font-weight:600;font-size:14px;letter-spacing:.18em;opacity:.85}
 
+/* weekly schedule widget */
+.week{padding:0;margin:0 18px 6px;border:1px solid var(--line);border-radius:4px;background:var(--panel);overflow:hidden}
+.week .wh{display:flex;align-items:baseline;justify-content:space-between;gap:10px;padding:12px 14px 8px}
+.week .wh h2{margin:0;font-size:19px;letter-spacing:.02em}
+.week .wh a{font-size:14px;color:var(--mute);text-decoration:none;border-bottom:1px solid var(--line);white-space:nowrap}
+.week .days{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;padding:0 10px 10px}
+.week .days button{appearance:none;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:4px;min-height:48px;font:700 17px/1 "Noto Sans JP",system-ui,sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:0;-webkit-tap-highlight-color:transparent;cursor:pointer}
+.week .days button small{font-family:"Barlow Condensed",sans-serif;font-weight:600;font-size:12px;letter-spacing:.04em;color:var(--mute);font-variant-numeric:tabular-nums}
+.week .days button.sat{color:#2457E6}.week .days button.sun{color:#C8322B}
+.week .days button[aria-selected="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.week .days button[aria-selected="true"] small{color:var(--bg);opacity:.8}
+.week .days button.today:not([aria-selected="true"]){border-color:var(--acc);box-shadow:inset 0 0 0 1px var(--acc)}
+.week .dh{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 14px 6px;border-top:1px solid var(--line)}
+.week .dh b{font-size:18px}
+.week .dh .tg{font-size:14px;color:var(--mute)}
+.week .dh button{appearance:none;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:4px;padding:8px 10px;font:600 14px/1 "Noto Sans JP",system-ui,sans-serif;cursor:pointer;white-space:nowrap}
+.week .list{display:grid;gap:6px;padding:4px 14px 14px}
+.week .it{display:grid;grid-template-columns:8.2em 1fr;gap:0 10px;align-items:baseline;padding:8px 10px 8px 12px;background:var(--bg);border:1px solid var(--line);border-left:4px solid var(--c,var(--line));border-radius:3px}
+.week .it .t{font-family:"Barlow Condensed","Arial Narrow",sans-serif;font-weight:700;font-size:19px;letter-spacing:.02em;font-variant-numeric:tabular-nums;white-space:nowrap}
+.week .it .n{font-size:16px;font-weight:500;line-height:1.4}
+.week .it .n small{display:block;font-size:13px;font-weight:400;color:var(--mute)}
+.week .empty{padding:14px;color:var(--mute);font-size:15px;text-align:center}
+.week .c1{--c:#0F1B2D}.week .c2{--c:#E88A2E}.week .c3{--c:#2457E6}.week .c4{--c:#C84B8C}.week .c5{--c:#5B6B7A}.week .c6{--c:#1F9E7A}.week .c7{--c:#8A5CD6}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .week .c1{--c:#8FB4FF} }
+:root[data-theme="dark"] .week .c1{--c:#8FB4FF}
+@media (max-width:380px){ .week .it{grid-template-columns:1fr} }
+
 footer{margin:34px 18px 0;border-top:1px solid var(--line);padding-top:14px;font-size:14px;color:var(--mute);display:grid;gap:4px}
 </style>
 
@@ -91,6 +118,13 @@ footer{margin:34px 18px 0;border-top:1px solid var(--line);padding-top:14px;font
   <h1>申込みフォーム</h1>
   <p class="lead">目的のフォームを開いて送信してください。</p>
 </header>
+
+<section class="week" id="week" aria-label="週間定例スケジュール">
+  <div class="wh"><h2>週間定例スケジュール</h2><a href="https://verion-gaming.jp/week/" target="_blank" rel="noopener">一週間の表を見る ↗</a></div>
+  <div class="days" id="wdays" role="tablist"></div>
+  <div class="dh" id="wdh"></div>
+  <div class="list" id="wlist"></div>
+</section>
 
 <nav class="tabs" aria-label="セクション">
   <a href="#events" class="on">イベント参加<small>EVENTS</small></a>
@@ -205,6 +239,57 @@ footer{margin:34px 18px 0;border-top:1px solid var(--line);padding-top:14px;font
   <div>VERION JAPAN　2026-09-06 更新</div>
 </footer>
 </div>
+
+<script>
+(function(){
+  // 週間定例スケジュール（references/2026-09-02_週間定例スケジュール.html の ev と同じ内容）
+  var ind=function(n,s,e){return {n:'個別説明枠'+n,p:'丸の内オフィス',s:s,e:e,c:3};};
+  var jo=[{n:'市場説明会',p:'久松町オフィス',s:'13:00',e:'14:15',c:4},{n:'パートナー説明会',p:'久松町オフィス',s:'14:30',e:'15:30',c:4}];
+  var ai=function(s,e){return {n:'AIワークショップ',p:'久松町オフィス',s:s,e:e,c:7};};
+  var ev=[
+    [ {n:'全体会議（昼の部）',p:'TKP東京駅カンファレンスセンター - 八重洲',s:'12:00',e:'13:00',c:1},{n:'懇親会（昼の部）',s:'13:00',e:'14:30',c:1},
+      {n:'全体会議（夜の部）',p:'TKP東京駅カンファレンスセンター - 八重洲',s:'19:00',e:'20:00',c:1},{n:'懇親会（夜の部）',s:'20:30',e:'22:00',c:1} ],
+    [ {n:'代表勉強会 公開収録',p:'TKP東京駅カンファレンスセンター - 八重洲',s:'13:00',e:'15:00',c:2}, ind('③','15:30','17:30'), ind('④','18:00','20:00') ],
+    [ ind('①','10:00','12:00'), ind('②','13:00','15:00'), ind('③','15:30','17:30'), ind('④','18:00','20:00'), {n:'zoom説明会',s:'21:00',e:'22:30',c:5} ],
+    jo.concat([ai('16:00','18:00'), {n:'個別説明',p:'久松町オフィス',s:'19:30',e:'21:00',c:6}]),
+    [ ],
+    [ ind('①','10:00','12:00'), ind('②','13:00','15:00'), ind('③','15:30','17:30'), ind('④','18:00','20:00') ],
+    [ {n:'代表勉強会 公開収録',p:'TKP東京駅カンファレンスセンター - 八重洲',s:'10:00',e:'12:00',c:2} ].concat(jo,[ai('16:00','18:00'), {n:'zoom説明会',s:'21:00',e:'22:30',c:5}]),
+    [ ai('10:00','12:00') ].concat(jo)
+  ];
+  var jp=['日','月','火','水','木','金','土'];
+  var now=new Date(), todayDow=now.getDay();
+  var mon=new Date(now); mon.setDate(now.getDate()-((todayDow+6)%7));
+  var monNth=Math.ceil(mon.getDate()/7);
+  var monCol=(monNth===1||monNth===3)?0:(monNth===2||monNth===4)?1:-1;
+  var dayCols={1:[0,1],2:[2],3:[3],4:[4],5:[5],6:[6],0:[7]};
+  var sel=todayDow, monView=(monCol===-1?0:monCol);
+  var tabs=document.getElementById('wdays'), dh=document.getElementById('wdh'), list=document.getElementById('wlist');
+  [1,2,3,4,5,6,0].forEach(function(d){
+    var dt=new Date(mon); dt.setDate(mon.getDate()+((d+6)%7));
+    var b=document.createElement('button'); b.type='button'; b.setAttribute('role','tab'); b.dataset.d=d;
+    b.className=(d===6?'sat':d===0?'sun':'')+(d===todayDow?' today':'');
+    b.innerHTML=jp[d]+'<small>'+(dt.getMonth()+1)+'/'+dt.getDate()+'</small>';
+    b.addEventListener('click',function(){sel=d;render();}); tabs.appendChild(b);
+  });
+  function render(){
+    var bs=tabs.querySelectorAll('button'); for(var i=0;i<bs.length;i++) bs[i].setAttribute('aria-selected',String(+bs[i].dataset.d===sel));
+    var cols=dayCols[sel], head='<b>'+jp[sel]+'曜日'+(sel===todayDow?'　<span class="tg">今日</span>':'')+'</b>';
+    if(sel===1){
+      var label=monView===0?'第1・3週':'第2・4週', other=monView===0?'第2・4週を見る':'第1・3週を見る';
+      var note=monCol===-1?'（今週は第5週・定例なし）':(monCol===monView?'（今週）':'');
+      head='<b>月曜日 '+label+'<span class="tg">'+note+'</span></b><button type="button" id="wswap">'+other+'</button>';
+      cols=[monView];
+    }
+    dh.innerHTML=head;
+    var sw=document.getElementById('wswap'); if(sw) sw.addEventListener('click',function(){monView=1-monView;render();});
+    var items=[]; cols.forEach(function(c){items=items.concat(ev[c]);}); items.sort(function(a,b){return a.s<b.s?-1:a.s>b.s?1:0;});
+    if(!items.length){ list.innerHTML='<div class="empty">定例なし</div>'; return; }
+    list.innerHTML=items.map(function(e){return '<div class="it c'+e.c+'"><span class="t">'+e.s+'–'+e.e+'</span><span class="n">'+e.n+(e.p?'<small>'+e.p+'</small>':'')+'</span></div>';}).join('');
+  }
+  render();
+})();
+</script>
 
 <script>
 (function(){

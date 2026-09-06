@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>VERION 週間定例スケジュール</title>
+<meta name="robots" content="noindex,nofollow">
+<style>img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<style>
+  :root{
+    --paper:#EEF0F2; --sheet:#FFFFFF; --ink:#1A1D21; --ink2:#4E565D; --ink3:#8A939A;
+    --line:#B9C1C7; --line-soft:#E0E4E8; --hatch:rgba(0,0,0,.05);
+    --sat:#1F5FA8; --sun:#B8232B;
+    --k1:#C79A1E; --f1:#FBF0CF; --t1:#4A3500;
+    --k2:#7B4FB0; --f2:#EBE1F7; --t2:#35195A;
+    --k3:#2F7CC0; --f3:#DCEBF8; --t3:#0F3152;
+    --k4:#D9694F; --f4:#FBE1DA; --t4:#5E1D0F;
+    --k5:#C24C96; --f5:#F8DCEC; --t5:#52183B;
+    --k6:#8B9399; --f6:#ECEEF0; --t6:#333A40;
+    --k7:#2F8A4A; --f7:#DDF2E3; --t7:#0F3F1F;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#101316; --sheet:#181C20; --ink:#E8ECEF; --ink2:#AEB6BD; --ink3:#78828A;
+      --line:#3B444C; --line-soft:#272E34; --hatch:rgba(255,255,255,.06);
+      --sat:#6FAAF0; --sun:#F07A82;
+      --k1:#E2B84A; --f1:#3A2E0C; --t1:#F6E3A8;
+      --k2:#A98AD8; --f2:#2C1F45; --t2:#DCCBF3;
+      --k3:#67A6E4; --f3:#14283C; --t3:#BFD9F5;
+      --k4:#EE8F76; --f4:#3F1C14; --t4:#F7C9BC;
+      --k5:#E27DC0; --f5:#3E1A31; --t5:#F5C6E3;
+      --k6:#9AA3AA; --f6:#242A2F; --t6:#CBD2D7;
+      --k7:#5FC27D; --f7:#143220; --t7:#BDEACB;
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#101316; --sheet:#181C20; --ink:#E8ECEF; --ink2:#AEB6BD; --ink3:#78828A;
+    --line:#3B444C; --line-soft:#272E34; --hatch:rgba(255,255,255,.06);
+    --sat:#6FAAF0; --sun:#F07A82;
+    --k1:#E2B84A; --f1:#3A2E0C; --t1:#F6E3A8;
+    --k2:#A98AD8; --f2:#2C1F45; --t2:#DCCBF3;
+    --k3:#67A6E4; --f3:#14283C; --t3:#BFD9F5;
+    --k4:#EE8F76; --f4:#3F1C14; --t4:#F7C9BC;
+    --k5:#E27DC0; --f5:#3E1A31; --t5:#F5C6E3;
+    --k6:#9AA3AA; --f6:#242A2F; --t6:#CBD2D7;
+    --k7:#5FC27D; --f7:#143220; --t7:#BDEACB;
+  }
+
+  /* 画面も印刷も同じ mm 寸法で組む（A4横・余白4.5mm＝有効 288×201mm）。文字の自動拡大が両方で同じ結果になる */
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic","Noto Sans JP",system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased;line-height:1.2}
+  .wrap{width:288mm;margin:0 auto;padding:5mm 0 10mm}
+  .page{width:288mm}
+  h1{font-size:15pt;font-weight:700;margin:0 0 2mm;letter-spacing:.02em}
+  .sheet{background:var(--sheet);border:.4mm solid var(--line);border-radius:2mm;padding:1.5mm 2mm 2mm;width:288mm}
+  .grid{display:grid;
+    grid-template-columns:11mm repeat(4,1fr) 11mm repeat(3,1fr);
+    grid-template-rows:11mm;grid-auto-rows:3.65mm;position:relative}
+  .dh{grid-row:1;align-self:end;text-align:center;font-weight:700;font-size:13pt;padding:0 0 1.2mm;border-bottom:.4mm solid var(--line);line-height:1.1}
+  .dh small{display:block;font-size:8.5pt;font-weight:500;color:var(--ink2);letter-spacing:.04em;margin-top:.3mm}
+  .dh.sat{color:var(--sat)} .dh.sun{color:var(--sun)}
+  .tcol{grid-column:1;border-right:.4mm solid var(--line)}
+  .tl{grid-column:1;font-size:8.5pt;color:var(--ink2);text-align:right;padding-right:1.6mm;transform:translateY(-1.6mm);font-variant-numeric:tabular-nums;line-height:1;position:relative;z-index:2}
+  .cell{border-right:.2mm solid var(--line-soft);border-bottom:.2mm solid var(--line-soft)}
+  .cell.hour{border-bottom-color:var(--line)}
+  .cell.last{border-right:0}
+  .none{writing-mode:vertical-rl;color:var(--ink3);font-size:9pt;letter-spacing:.3em;justify-self:center;align-self:center;
+    background:repeating-linear-gradient(135deg,var(--hatch) 0 .8mm,transparent .8mm 2.4mm);padding:3mm 1mm;border-radius:1mm;z-index:1}
+
+  .ev{margin:.3mm .6mm .5mm .6mm;padding:.6mm 1mm .5mm 1.4mm;border-left:.9mm solid;border-radius:.8mm;z-index:1;
+      display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;font-size:10pt;line-height:1.1}
+  .ev b{font-weight:700;letter-spacing:0;display:block}
+  .ev b span{display:block;white-space:nowrap}
+  .ev b span.sub{font-size:.78em;font-weight:500}
+  .ev .t{display:block;font-size:.7em;font-variant-numeric:tabular-nums;opacity:.9;white-space:nowrap;line-height:1;padding-top:.3mm}
+  .c1{background:var(--f1);border-color:var(--k1);color:var(--t1)}
+  .c2{background:var(--f2);border-color:var(--k2);color:var(--t2)}
+  .c3{background:var(--f3);border-color:var(--k3);color:var(--t3)}
+  .c4{background:var(--f4);border-color:var(--k4);color:var(--t4)}
+  .c5{background:var(--f5);border-color:var(--k5);color:var(--t5)}
+  .c6{background:var(--f6);border-color:var(--k6);color:var(--t6)}
+  .c7{background:var(--f7);border-color:var(--k7);color:var(--t7)}
+
+  /* ===== スマホ（幅700px未満）：表をやめて曜日ごとの縦リスト ===== */
+  .mobile{display:none}
+  @media (max-width:699px), (max-height:520px){
+    .wrap,.page{width:auto;padding:0}
+    .sheet{display:none}
+    .mobile{display:block;min-height:100vh;background:var(--paper)}
+    .tabs{position:sticky;top:0;z-index:5;display:grid;grid-template-columns:repeat(7,1fr);gap:4px;padding:10px 8px 8px;background:var(--paper)}
+    .tab{appearance:none;border:0;border-radius:12px;background:var(--sheet);color:var(--ink);font:700 22px/1 inherit;font-family:inherit;padding:14px 0 12px;box-shadow:0 1px 2px rgba(0,0,0,.08);cursor:pointer}
+    .tab.sat{color:var(--sat)} .tab.sun{color:var(--sun)}
+    .tab[aria-selected="true"]{background:var(--ink);color:var(--sheet)}
+    .tab:focus-visible{outline:3px solid var(--k3);outline-offset:2px}
+    .dayhead{display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:14px 16px 6px}
+    .dayhead h2{margin:0;font-size:26px;font-weight:700}
+    .dayhead h2.sat{color:var(--sat)} .dayhead h2.sun{color:var(--sun)}
+    .dayhead .today{font-size:16px;color:var(--ink2);font-weight:500}
+    .weeknote{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 16px 4px;padding:10px 14px;border-radius:12px;background:var(--f1);color:var(--t1);font-size:17px;font-weight:500}
+    .weeknote button{appearance:none;border:0;border-radius:10px;background:var(--sheet);color:var(--ink);font:700 16px/1 inherit;font-family:inherit;padding:10px 12px;white-space:nowrap;box-shadow:0 1px 2px rgba(0,0,0,.08)}
+    .list{display:flex;flex-direction:column;gap:10px;padding:8px 16px 32px}
+    .card{border-left:8px solid;border-radius:14px;padding:14px 16px 13px;box-shadow:0 1px 2px rgba(0,0,0,.05)}
+    .card .cn{font-size:22px;font-weight:700;line-height:1.3;text-wrap:balance}
+    .card .cn small{font-size:.8em;font-weight:500}
+    .card .ct{font-size:19px;font-variant-numeric:tabular-nums;margin-top:6px;opacity:.9}
+
+    /* 切替（きょう／一週間） */
+    .mtop{display:flex;justify-content:center;padding:8px 8px 0;background:var(--paper)}
+    .seg{display:inline-grid;grid-template-columns:1fr 1fr;background:var(--sheet);border-radius:12px;padding:3px;box-shadow:0 1px 2px rgba(0,0,0,.08)}
+    .seg button{appearance:none;border:0;border-radius:10px;background:transparent;color:var(--ink2);font:700 17px/1 inherit;font-family:inherit;padding:10px 18px;cursor:pointer}
+    .seg button[aria-selected="true"]{background:var(--ink);color:var(--sheet)}
+    .mobile[data-view="table"] #mlist{display:none}
+    .mobile[data-view="list"] #mtable{display:none}
+    /* 一週間：曜日を縦・時間を横、画面いっぱい */
+    .mtable{height:calc(100dvh - 58px);display:grid;grid-template-columns:40px 1fr;grid-template-rows:22px repeat(8,1fr);gap:0;padding:4px 6px 8px 2px}
+    .mtable .th{grid-column:2;position:relative;font-size:12px;color:var(--ink2);font-variant-numeric:tabular-nums}
+    .mtable .th span{position:absolute;top:2px;transform:translateX(-50%)}
+    .mtable .dl{display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:19px;font-weight:700;line-height:1;border-top:1px solid var(--line-soft)}
+    .mtable .dl small{font-size:10px;font-weight:500;color:var(--ink2);margin-top:3px;letter-spacing:0}
+    .mtable .dl.sat{color:var(--sat)} .mtable .dl.sun{color:var(--sun)}
+    .mtable .dr{position:relative;border-top:1px solid var(--line-soft);border-left:1px solid var(--line);
+      background:repeating-linear-gradient(90deg,transparent 0 calc(100%/12.5 - 1px),var(--line-soft) calc(100%/12.5 - 1px) calc(100%/12.5))}
+    .mtable .dr.last{border-bottom:1px solid var(--line-soft)}
+    .mtable .dr .none2{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--ink3);font-size:13px;letter-spacing:.3em}
+    .mtable .mv{position:absolute;top:3px;bottom:3px;border-top:4px solid;border-radius:5px;padding:3px 2px 2px 3px;
+      font-weight:700;line-height:1.12;overflow:hidden;white-space:normal;word-break:break-all;overflow-wrap:anywhere;font-size:13px;letter-spacing:0}
+    .mtable .mv span{display:block}
+    .mtable .mv span.sub{font-size:.78em;font-weight:500}
+    /* 横向きのスマホ：行が低く列が広いので横書きにする */
+    @media (orientation:landscape){
+      .mtable{height:calc(100dvh - 54px);grid-template-rows:18px repeat(8,1fr)}
+      .mtable .mv{border-top-width:3px;padding:2px 4px 1px;top:2px;bottom:2px}
+      .mtable .dl{font-size:14px;flex-direction:row;gap:2px}
+      .mtable .dl small{margin:0;white-space:nowrap;font-size:9px}
+    }
+    .empty{margin:8px 16px;padding:28px 16px;border-radius:14px;background:var(--sheet);color:var(--ink2);text-align:center;font-size:20px}
+  }
+  @media print{ .mobile{display:none!important} .sheet{display:block!important} .wrap,.page{width:288mm} }
+
+  @media print{
+    @page{size:A4 landscape;margin:4.5mm}
+    body{background:#fff}
+    .wrap{padding:0;margin:0}
+    .sheet{border-color:#999}
+    .c1,.c2,.c3,.c4,.c5,.c6,.c7,.none{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  }
+</style>
+
+<div class="wrap"><div class="page">
+  <div class="sheet"><div class="grid" id="grid"></div></div>
+  <div class="mobile" id="mobile" data-view="list">
+    <div class="mtop"><div class="seg" role="tablist">
+      <button type="button" data-v="list" aria-selected="true">きょう</button>
+      <button type="button" data-v="table" aria-selected="false">一週間</button>
+    </div></div>
+    <div id="mlist">
+      <div class="tabs" id="tabs" role="tablist"></div>
+      <div class="dayhead" id="dayhead"></div>
+      <div id="weeknote"></div>
+      <div class="list" id="list"></div>
+    </div>
+    <div class="mtable" id="mtable"></div>
+  </div>
+</div></div>
+
+<script>
+(function(){
+  const days = [['月','第1・3週',''],['月','第2・4週',''],['火','',''],['水','',''],['木','',''],['金','',''],['土','','sat'],['日','','sun']];
+  const ind = (n,s,e)=>({n:'丸の内オフィス<br>個別説明枠'+n+'|丸の内<br>オフィス<br>個別説明枠'+n,s,e,c:3});
+  const jo = [{n:'市場説明会',s:'13:00',e:'14:15',c:4},{n:'パートナー説明会',s:'14:30',e:'15:30',c:4}];
+  const ai = (s,e)=>({n:'AIワーク<br>ショップ|AIワークショップ',s,e,c:7});
+  const ev = [
+    [ {n:'全体会議<br>（昼の部）',s:'12:00',e:'13:00',c:1},{n:'懇親会<br>（昼の部）',s:'13:00',e:'14:30',c:1,f:1},
+      {n:'全体会議<br>（夜の部）',s:'19:00',e:'20:00',c:1},{n:'懇親会<br>（夜の部）',s:'20:30',e:'22:00',c:1,f:1} ],
+    [ {n:'代表<br>勉強会収録',s:'13:00',e:'15:00',c:2}, ind('③','15:30','17:30'), ind('④','18:00','20:00') ],
+    [ ind('①','10:00','12:00'), ind('②','13:00','15:00'), ind('③','15:30','17:30'), ind('④','18:00','20:00'), {n:'zoom説明会|zoom<br>説明会',s:'21:00',e:'22:30',c:5} ],
+    [ ...jo, ai('16:00','18:00'), {n:'久松町オフィス<br>個別説明|久松町<br>オフィス<br>個別説明',s:'19:30',e:'21:00',c:6} ],
+    [ ],
+    [ ind('①','10:00','12:00'), ind('②','13:00','15:00'), ind('③','15:30','17:30'), ind('④','18:00','20:00') ],
+    [ {n:'代表<br>勉強会収録',s:'10:00',e:'12:00',c:2}, ...jo, ai('16:00','18:00'), {n:'zoom説明会|zoom<br>説明会',s:'21:00',e:'22:30',c:5} ],
+    [ ai('10:00','12:00'), ...jo ]
+  ];
+  const START=10*60, END=22*60+30, SLOT=15, ROWS=(END-START)/SLOT;
+  const row = t => { const [h,m]=t.split(':').map(Number); return (h*60+m-START)/SLOT + 2; };
+
+  let html = '<div class="dh" style="grid-column:1"></div>';
+  days.forEach((d,i)=> html += `<div class="dh ${d[2]}" style="grid-column:${i+2}">${d[0]}<small>${d[1]||'&nbsp;'}</small></div>`);
+  for(let r=0;r<ROWS;r++){
+    const hour = ((r+1)%4===0);
+    for(let c=0;c<8;c++) html += `<div class="cell ${hour?'hour':''} ${c===7?'last':''}" style="grid-column:${c+2};grid-row:${r+2}"></div>`;
+    if(r%4===0) html += `<div class="tl" style="grid-row:${r+2}">${10+r/4}:00</div>`;
+  }
+  html += `<div class="tcol" style="grid-row:2 / span ${ROWS}"></div>`;
+  html += `<div class="none" style="grid-column:6;grid-row:2 / span ${ROWS}">定例なし</div>`;
+  ev.forEach((list,c)=>list.forEach(e=>{
+    html += `<div class="ev c${e.c}" data-n="${e.n}"${e.f?' data-f="1"':''} style="grid-column:${c+2};grid-row:${row(e.s)} / ${row(e.e)}"><b></b><span class="t">${e.s}–${e.e}</span></div>`;
+  }));
+  const grid = document.getElementById('grid');
+  grid.innerHTML = html;
+
+  // 文字を枠に入る最大サイズまで拡大（0.5pt刻み、上限22pt）
+  function fits(el){ return el.scrollHeight <= el.clientHeight + 0.5 && el.scrollWidth <= el.clientWidth + 0.5; }
+  function maxSize(el){
+    let lo=6, hi=22, best=6;
+    while(hi-lo>0.25){
+      const mid=(lo+hi)/2; el.style.fontSize=mid+'pt';
+      if(fits(el)){best=mid;lo=mid;} else hi=mid;
+    }
+    best=Math.floor(best*2)/2; el.style.fontSize=best+'pt';
+    while(best>6 && !fits(el)){ best-=0.5; el.style.fontSize=best+'pt'; }
+    return best;
+  }
+  function fit(){
+    const evs=[...grid.querySelectorAll('.ev')];
+    const layoutsOf=el=>{ const l=el.dataset.n.split('|').map(x=>x.split('<br>')); if(!el.dataset.f && !l.some(x=>x.length===1)) l.push([l[0].join('')]); return l; };
+    const render=(b,ls)=>{ b.innerHTML=ls.map(x=>`<span${/^（.+）$/.test(x)?' class="sub"':''}>${x}</span>`).join(''); };
+    // 1) 枠ごとの最大サイズ → 2) 全枠でいちばん小さい値に統一 → 3) その大きさで入る行の分け方（少ない行数を優先）
+    let uni=22;
+    evs.forEach(el=>{
+      const b=el.querySelector('b'); let best=0;
+      layoutsOf(el).forEach(ls=>{ render(b,ls); best=Math.max(best,maxSize(el)); });
+      uni=Math.min(uni,best);
+    });
+    evs.forEach(el=>{
+      const b=el.querySelector('b'); el.style.fontSize=uni+'pt';
+      const ls=layoutsOf(el).sort((a,c)=>a.length-c.length);
+      let ok=false;
+      for(const l of ls){ render(b,l); if(fits(el)){ok=true;break;} }
+      if(!ok) render(b,ls[ls.length-1]);
+    });
+  }
+  const gridVisible=()=>grid.offsetParent!==null;
+  const safeFit=()=>{ if(gridVisible()) fit(); };
+  safeFit();
+  if(document.fonts && document.fonts.ready) document.fonts.ready.then(safeFit);
+  window.addEventListener('beforeprint', fit);
+  const mq=window.matchMedia('(min-width:700px) and (min-height:521px)');
+  (mq.addEventListener?mq.addEventListener('change',safeFit):mq.addListener(safeFit));
+
+  // ===== スマホ用の縦リスト =====
+  const jp=['日','月','火','水','木','金','土'];
+  const now=new Date();
+  const todayDow=now.getDay();                       // 0=日
+  const mon=new Date(now); mon.setDate(now.getDate()-((todayDow+6)%7)); // 今週の月曜
+  const monNth=Math.ceil(mon.getDate()/7);           // 今週の月曜は第何週か
+  const monCol = (monNth===1||monNth===3)?0 : (monNth===2||monNth===4)?1 : -1;
+  const dayCols={1:[0,1],2:[2],3:[3],4:[4],5:[5],6:[6],0:[7]}; // 曜日 → ev の列
+  let sel=todayDow, monView=(monCol===-1?0:monCol);
+  const hd=/#d=([0-6])/.exec(location.hash); if(hd) sel=+hd[1];   // 例 #d=1 で月曜を開く
+
+  const tabs=document.getElementById('tabs');
+  [1,2,3,4,5,6,0].forEach(d=>{
+    const b=document.createElement('button'); b.className='tab'+(d===6?' sat':d===0?' sun':''); b.type='button'; b.setAttribute('role','tab');
+    b.textContent=jp[d]; b.dataset.d=d; b.addEventListener('click',()=>{sel=d;renderMobile();}); tabs.appendChild(b);
+  });
+  const nameHtml=n=>{
+    const first=n.split('|')[0].split('<br>');
+    return first.map(x=>/^（.+）$/.test(x)?`<small>${x}</small>`:x).join(' ');
+  };
+  function renderMobile(){
+    tabs.querySelectorAll('.tab').forEach(b=>b.setAttribute('aria-selected', String(+b.dataset.d===sel)));
+    const head=document.getElementById('dayhead');
+    const cls=sel===6?'sat':sel===0?'sun':'';
+    const isToday=sel===todayDow;
+    head.innerHTML=`<h2 class="${cls}">${jp[sel]}曜日</h2><span class="today">${isToday?`今日 ${now.getMonth()+1}月${now.getDate()}日`:''}</span>`;
+    const note=document.getElementById('weeknote'); note.innerHTML='';
+    let cols=dayCols[sel];
+    if(sel===1){
+      const label=monView===0?'第1・3週の月曜':'第2・4週の月曜';
+      const other=monView===0?'第2・4週を見る':'第1・3週を見る';
+      const thisWeek = monCol===-1 ? '今週（第5週）の月曜は定例なし' : (monCol===monView?'今週はこちら':'');
+      note.innerHTML=`<div class="weeknote"><span>${label}${thisWeek?'　'+thisWeek:''}</span><button type="button" id="swap">${other}</button></div>`;
+      note.querySelector('#swap').addEventListener('click',()=>{monView=1-monView;renderMobile();});
+      cols=[monView];
+    }
+    const list=document.getElementById('list'); list.innerHTML='';
+    const items=cols.flatMap(c=>ev[c]).slice().sort((a,b)=>a.s.localeCompare(b.s));
+    if(!items.length){ list.innerHTML=`<div class="empty">定例なし</div>`; return; }
+    items.forEach(e=>{
+      const d=document.createElement('div'); d.className=`card c${e.c}`;
+      d.innerHTML=`<div class="cn">${nameHtml(e.n)}</div><div class="ct">${e.s}–${e.e}</div>`;
+      list.appendChild(d);
+    });
+  }
+  renderMobile();
+  // ===== 一週間（曜日を縦・時間を横）=====
+  const mobile=document.getElementById('mobile');
+  const hv=/#v=(list|table)/.exec(location.hash); if(hv) mobile.dataset.view=hv[1];
+  mobile.querySelectorAll('.seg button').forEach(b=>{
+    b.setAttribute('aria-selected', String(b.dataset.v===mobile.dataset.view));
+    b.addEventListener('click',()=>{ mobile.dataset.view=b.dataset.v;
+      mobile.querySelectorAll('.seg button').forEach(x=>x.setAttribute('aria-selected',String(x===b))); fitTable(); });
+  });
+  const mt=document.getElementById('mtable');
+  const pct=t=>{ const [h,m]=t.split(':').map(Number); return ((h*60+m-START)/(END-START)*100); };
+  let th='<div></div><div class="th">'+[10,12,14,16,18,20,22].map(h=>`<span style="left:${pct(h+':00')}%">${h}</span>`).join('')+'</div>';
+  days.forEach((d,i)=>{
+    const cls=d[2]; const wk=d[1]?`<small>${d[1].replace('第','').replace('週','')}</small>`:'';
+    th+=`<div class="dl ${cls}">${d[0]}${wk}</div><div class="dr ${i===7?'last':''}">`;
+    if(!ev[i].length) th+='<div class="none2">定例なし</div>';
+    ev[i].forEach(e=>{ th+=`<div class="mv c${e.c}" data-n="${e.n}" style="left:${pct(e.s)}%;width:calc(${pct(e.e)-pct(e.s)}% - 2px)"></div>`; });
+    th+='</div>';
+  });
+  mt.innerHTML=th;
+  function fitTable(){
+    if(mt.offsetParent===null) return;
+    const boxes=[...mt.querySelectorAll('.mv')];
+    const render=(el,ls)=>{ el.innerHTML=ls.map(x=>`<span${/^（.+）$/.test(x)?' class="sub"':''}>${x}</span>`).join(''); };
+    const layoutsOf=el=>{ const l=el.dataset.n.split('|').map(x=>x.split('<br>')); if(!el.dataset.f && !l.some(x=>x.length===1)) l.push([l[0].join('')]); return l; };
+    const fitsB=el=>el.scrollHeight<=el.clientHeight+0.5 && el.scrollWidth<=el.clientWidth+0.5;
+    const maxPx=el=>{ let lo=7,hi=24,best=7; while(hi-lo>0.5){const m=(lo+hi)/2; el.style.fontSize=m+'px'; if(fitsB(el)){best=m;lo=m;}else hi=m;} best=Math.floor(best); el.style.fontSize=best+'px'; while(best>7&&!fitsB(el)){best--;el.style.fontSize=best+'px';} return best; };
+    let uni=24;
+    boxes.forEach(el=>{ let best=0; layoutsOf(el).forEach(ls=>{ render(el,ls); best=Math.max(best,maxPx(el)); }); uni=Math.min(uni,best); });
+    boxes.forEach(el=>{ el.style.fontSize=uni+'px'; const ls=layoutsOf(el).sort((a,b)=>a.length-b.length); let ok=false; for(const l of ls){render(el,l); if(fitsB(el)){ok=true;break;}} if(!ok) render(el,ls[ls.length-1]); });
+  }
+  fitTable();
+  window.addEventListener('resize', fitTable);
+  if(document.fonts && document.fonts.ready) document.fonts.ready.then(fitTable);
+
+})();
+</script>
+</body>
+</html>
