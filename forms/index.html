@@ -111,6 +111,16 @@ section{padding:26px 18px 6px;scroll-margin-top:64px}
 .mg .dots{display:flex;flex-wrap:wrap;justify-content:center;gap:2px;max-width:30px}
 .mg .dots i{width:6px;height:6px;border-radius:50%;background:var(--c,var(--line))}
 .mg .hn{font-size:9px;font-weight:500;line-height:1.1;color:#C8322B;text-align:center;letter-spacing:-.02em}
+/* legend */
+.leg{display:grid;grid-template-columns:1fr;gap:4px;padding:2px 12px 12px}
+.leg a{display:grid;grid-template-columns:12px 1fr auto;gap:0 8px;align-items:baseline;text-decoration:none;color:inherit;font-size:14.5px;line-height:1.35;padding:6px 8px;border-radius:3px;background:var(--bg);border:1px solid var(--line);-webkit-tap-highlight-color:transparent}
+.leg a i{width:10px;height:10px;border-radius:50%;background:var(--c,var(--line));display:inline-block;position:relative;top:1px}
+.leg a b{font-weight:600}
+.leg a small{font-size:12.5px;color:var(--mute);line-height:1.3;text-align:right}
+@media (max-width:420px){ .leg a{grid-template-columns:12px 1fr} .leg a small{grid-column:2;text-align:left} }
+.leg .lt{grid-column:1 / -1;font-family:"Barlow Condensed",sans-serif;font-weight:600;font-size:12px;letter-spacing:.14em;color:var(--mute);padding:4px 0 0}
+.mnav button:disabled{opacity:.3;cursor:default}
+.week .range{padding:0 14px 8px;font-size:12.5px;color:var(--mute)}
 /* day list */
 .week .dh{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 14px 6px;border-top:1px solid var(--line)}
 .week .dh b{font-size:18px}
@@ -150,6 +160,7 @@ footer{margin:34px 18px 0;border-top:1px solid var(--line);padding-top:14px;font
     <div class="seg" role="tablist"><button type="button" data-v="week" aria-selected="true">週</button><button type="button" data-v="month" aria-selected="false">月</button></div></div>
   <div class="days" id="wdays" role="tablist"></div>
   <div id="wmonth"><div class="mnav"><button type="button" id="mprev" aria-label="前の月">‹</button><b id="mtitle"></b><button type="button" id="mnext" aria-label="次の月">›</button></div><div class="mg" id="mgrid"></div></div>
+  <div class="leg" id="wleg"></div>
   <div class="dh" id="wdh"></div>
   <div class="list" id="wlist"></div>
 </section>
@@ -289,6 +300,16 @@ footer{margin:34px 18px 0;border-top:1px solid var(--line);padding-top:14px;font
   var HOL={'2026-09-21':'敬老の日','2026-09-22':'休日','2026-09-23':'秋分の日','2026-10-12':'スポーツの日','2026-11-03':'文化の日','2026-11-23':'勤労感謝の日',
            '2027-01-01':'元日','2027-01-11':'成人の日','2027-02-11':'建国記念の日','2027-02-23':'天皇誕生日','2027-03-21':'春分の日','2027-03-22':'振替休日',
            '2027-04-29':'昭和の日','2027-05-03':'憲法記念日','2027-05-04':'みどりの日','2027-05-05':'こどもの日','2027-07-19':'海の日','2027-08-11':'山の日'};
+  var LEG=[
+    {c:1,n:'全体会議・懇親会',f:'全体会議 参加申請',to:'f-zenkai'},
+    {c:2,n:'代表勉強会 公開収録',f:'公開収録 参加申込み',to:'f-kokai'},
+    {c:7,n:'AIワークショップ',f:'AI活用ワークショップ 参加申込み',to:'f-ai'},
+    {c:4,n:'市場説明会・パートナー説明会',f:'新規来場者 事前情報申告',to:'f-guest'},
+    {c:3,n:'個別説明枠①〜④（丸の内）',f:'新規来場者 事前情報申告',to:'f-guest'},
+    {c:6,n:'個別説明（久松町）',f:'新規来場者 事前情報申告',to:'f-guest'},
+    {c:5,n:'zoom説明会',f:'新規来場者 事前情報申告',to:'f-guest'}
+  ];
+  var MIN=new Date(2026,8,1), MAX=new Date(2026,11,1);   // 表示範囲: 2026年9月〜12月（年内）
   var jp=['日','月','火','水','木','金','土'];
   var now=new Date(), today=new Date(now.getFullYear(),now.getMonth(),now.getDate());
   var key=function(d){return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2);};
@@ -304,6 +325,11 @@ footer{margin:34px 18px 0;border-top:1px solid var(--line);padding-top:14px;font
   var sel=new Date(today);                                                          // 選択日
   var mview=new Date(today.getFullYear(),today.getMonth(),1);                       // 表示中の月
   var monAlt=null;  // 月曜の第1・3／第2・4 手動切替（null=日付どおり）
+  if(mview<MIN) mview=new Date(MIN); if(mview>MAX) mview=new Date(MAX);
+  function jump(id){ var t=document.getElementById(id); if(!t) return; t.scrollIntoView({behavior:'smooth',block:'start'}); t.classList.remove('hit'); void t.offsetWidth; t.classList.add('hit'); }
+  var leg=document.getElementById('wleg');
+  leg.innerHTML='<div class="lt">色の見方 ／ タップで申請へ</div>'+LEG.map(function(l){return '<a class="c'+l.c+'" href="#'+l.to+'"><i></i><b>'+l.n+'</b><small>→ '+l.f+'</small></a>';}).join('');
+  var la=leg.querySelectorAll('a'); for(var i=0;i<la.length;i++){(function(a){a.addEventListener('click',function(e){e.preventDefault();jump(a.getAttribute('href').slice(1));});})(la[i]);}
 
   // 週タブ
   for(var i=0;i<7;i++){(function(i){
@@ -317,23 +343,24 @@ footer{margin:34px 18px 0;border-top:1px solid var(--line);padding-top:14px;font
   function renderMonth(){
     var y=mview.getFullYear(), m=mview.getMonth();
     mtitle.textContent=y+'年'+(m+1)+'月';
+    document.getElementById('mprev').disabled=(mview<=MIN); document.getElementById('mnext').disabled=(mview>=MAX);
     var first=new Date(y,m,1), start=new Date(first); start.setDate(1-((first.getDay()+6)%7));
     var h=''; ['月','火','水','木','金','土','日'].forEach(function(w,i){h+='<div class="wd'+(i===5?' sat':i===6?' sun':'')+'">'+w+'</div>';});
     for(var i=0;i<42;i++){
       var d=new Date(start); d.setDate(start.getDate()+i); if(i>=35 && d.getMonth()!==m) break;
-      var k=key(d), hol=HOL[k], out=d.getMonth()!==m, its=itemsOf(d), seen={}, dots='';
+      var k=key(d), hol=HOL[k], out=d.getMonth()!==m, inRange=(d>=MIN && d<new Date(2027,0,1)), its=inRange?itemsOf(d):[], seen={}, dots='';
       its.forEach(function(e){ if(!seen[e.c]){seen[e.c]=1; dots+='<i class="c'+e.c+'"></i>';} });
       h+='<button type="button" data-k="'+k+'" class="'+(out?'out ':'')+(d.getDay()===6?'sat':(d.getDay()===0||hol)?'sun':'')+(same(d,today)?' today':'')+'" aria-selected="'+same(d,sel)+'">'
         +d.getDate()+(dots?'<span class="dots">'+dots+'</span>':'')+(hol?'<span class="hn">'+hol+'</span>':'')+'</button>';
     }
     mgrid.innerHTML=h;
     var bs=mgrid.querySelectorAll('button'); for(var i=0;i<bs.length;i++){(function(b){b.addEventListener('click',function(){
-      var p=b.dataset.k.split('-'); sel=new Date(+p[0],+p[1]-1,+p[2]); monAlt=null;
+      var p=b.dataset.k.split('-'); var nd=new Date(+p[0],+p[1]-1,+p[2]); if(nd<MIN||nd>=new Date(2027,0,1)) return; sel=nd; monAlt=null;
       if(sel.getMonth()!==mview.getMonth()){mview=new Date(sel.getFullYear(),sel.getMonth(),1);}
       render();});})(bs[i]);}
   }
-  document.getElementById('mprev').addEventListener('click',function(){mview=new Date(mview.getFullYear(),mview.getMonth()-1,1);renderMonth();});
-  document.getElementById('mnext').addEventListener('click',function(){mview=new Date(mview.getFullYear(),mview.getMonth()+1,1);renderMonth();});
+  document.getElementById('mprev').addEventListener('click',function(){if(mview<=MIN)return;mview=new Date(mview.getFullYear(),mview.getMonth()-1,1);renderMonth();});
+  document.getElementById('mnext').addEventListener('click',function(){if(mview>=MAX)return;mview=new Date(mview.getFullYear(),mview.getMonth()+1,1);renderMonth();});
   root.querySelectorAll('.seg button').forEach(function(b){b.addEventListener('click',function(){
     root.dataset.view=b.dataset.v; root.querySelectorAll('.seg button').forEach(function(x){x.setAttribute('aria-selected',String(x===b));});
     if(b.dataset.v==='month'){mview=new Date(sel.getFullYear(),sel.getMonth(),1);renderMonth();}
@@ -354,12 +381,11 @@ footer{margin:34px 18px 0;border-top:1px solid var(--line);padding-top:14px;font
     }
     dh.innerHTML=head;
     var sw=document.getElementById('wswap'); if(sw) sw.addEventListener('click',function(){var auto=monCol(sel);var cur=(monAlt===null?(auto<0?0:auto):monAlt);monAlt=1-cur;render();});
-    var items=[]; cols.forEach(function(c){items=items.concat(ev[c]);}); items.sort(function(a,b){return a.s<b.s?-1:a.s>b.s?1:0;});
-    if(!items.length){ list.innerHTML='<div class="empty">定例なし</div>'; return; }
+    var items=[]; if(sel>=MIN && sel<new Date(2027,0,1)) cols.forEach(function(c){items=items.concat(ev[c]);}); items.sort(function(a,b){return a.s<b.s?-1:a.s>b.s?1:0;});
+    if(!items.length){ list.innerHTML='<div class="empty">'+((sel<MIN||sel>=new Date(2027,0,1))?'年内（2026年9〜12月）の予定を表示しています':'定例なし')+'</div>'; return; }
     list.innerHTML=items.map(function(e){return '<a class="it c'+e.c+'" href="#'+e.to+'"><span class="t">'+e.s+'–'+e.e+'</span><span class="n">'+e.n+(e.p?'<small>'+e.p+'</small>':'')+'</span><span class="go">申請へ ↓</span></a>';}).join('');
     var as=list.querySelectorAll('a'); for(var i=0;i<as.length;i++){(function(a){a.addEventListener('click',function(ev){
-      ev.preventDefault(); var t=document.getElementById(a.getAttribute('href').slice(1)); if(!t) return;
-      t.scrollIntoView({behavior:'smooth',block:'start'}); t.classList.remove('hit'); void t.offsetWidth; t.classList.add('hit');
+      ev.preventDefault(); jump(a.getAttribute('href').slice(1));
     });})(as[i]);}
   }
   render();
