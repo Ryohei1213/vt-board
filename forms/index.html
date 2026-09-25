@@ -181,7 +181,7 @@ footer{margin:34px 18px 0;border-top:1px solid var(--line);padding-top:14px;font
     <div class="row"><div class="k">開催</div>
       <div class="slots">
         <div class="slot"><div class="t">毎週土曜 10:00–12:00</div></div>
-        <div class="slot"><div class="t">第2・第4月曜 13:00–15:00</div></div>
+        <div class="slot"><div class="t">第2・第4月曜 13:00–15:00</div><div class="n">9月28日で終了。10月からは土曜のみ</div></div>
       </div>
     </div>
     <div class="row"><div class="k">対象</div><div class="v">VERIONパートナー、およびパートナーからのご紹介者</div></div>
@@ -305,7 +305,7 @@ footer{margin:34px 18px 0;border-top:1px solid var(--line);padding-top:14px;font
   var ev=[
     [ {n:'全体会議（昼の部）',p:TKP,s:'12:00',e:'13:00',c:1,to:'f-zenkai'},{n:'懇親会（昼の部）',s:'13:00',e:'14:30',c:1,to:'f-zenkai'},
       {n:'全体会議（夜の部）',p:TKP,s:'19:00',e:'20:00',c:1,to:'f-zenkai'},{n:'懇親会（夜の部）',s:'20:30',e:'22:00',c:1,to:'f-zenkai'} ],
-    [ {n:'代表勉強会 公開収録',p:TKP,s:'13:00',e:'15:00',c:2,to:'f-kokai'}, ind('③','15:30','17:30'), ind('④','18:00','20:00') ],
+    [ {n:'代表勉強会 公開収録',p:TKP,s:'13:00',e:'15:00',c:2,to:'f-kokai',u:'2026-09-30'}, ind('③','15:30','17:30'), ind('④','18:00','20:00') ],
     [ ind('①','10:00','12:00'), ind('②','13:00','15:00'), ind('③','15:30','17:30'), ind('④','18:00','20:00'), {n:'Zoom説明会',p:'オンライン',s:'21:00',e:'22:30',c:5,to:'f-zoom'} ],
     jo.concat([ai('16:00','18:00'), {n:'個別説明',p:'久松町オフィス',s:'19:30',e:'21:00',c:6,to:'f-guest'}]),
     [ ],
@@ -324,7 +324,8 @@ footer{margin:34px 18px 0;border-top:1px solid var(--line);padding-top:14px;font
   // ある日付の定例（月曜は第1・3／第2・4を日付で判定。第5月曜は定例なし）
   var monCol=function(d){var n=Math.ceil(d.getDate()/7);return (n===1||n===3)?0:(n===2||n===4)?1:-1;};
   var colsOf=function(d){var w=d.getDay(); if(w===1){var c=monCol(d);return c<0?[]:[c];} return [{2:2,3:3,4:4,5:5,6:6,0:7}[w]];};
-  var itemsOf=function(d){var it=[];colsOf(d).forEach(function(c){it=it.concat(ev[c]);});return it.slice().sort(function(a,b){return a.s<b.s?-1:a.s>b.s?1:0;});};
+  var pick=function(d,c){var k=key(d);return ev[c].filter(function(e){return !e.u||k<=e.u;});};
+  var itemsOf=function(d){var it=[];colsOf(d).forEach(function(c){it=it.concat(pick(d,c));});return it.slice().sort(function(a,b){return a.s<b.s?-1:a.s>b.s?1:0;});};
 
   var root=document.getElementById('week'), tabs=document.getElementById('wdays'), dh=document.getElementById('wdh'), list=document.getElementById('wlist');
   var mgrid=document.getElementById('mgrid'), mtitle=document.getElementById('mtitle');
@@ -382,7 +383,7 @@ footer{margin:34px 18px 0;border-top:1px solid var(--line);padding-top:14px;font
       head='<b>'+label+'<span class="tg">'+(isT?'　今日':'')+(auto===0?'　第1・3週':auto===1?'　第2・4週':'　第5週')+(hol?'　'+hol:'')+'</span></b>';
     }
     dh.innerHTML=head;
-    var items=[]; if(sel>=MIN && sel<new Date(2027,0,1)) cols.forEach(function(c){items=items.concat(ev[c]);}); items.sort(function(a,b){return a.s<b.s?-1:a.s>b.s?1:0;});
+    var items=[]; if(sel>=MIN && sel<new Date(2027,0,1)) cols.forEach(function(c){items=items.concat(pick(sel,c));}); items.sort(function(a,b){return a.s<b.s?-1:a.s>b.s?1:0;});
     if(!items.length){ list.innerHTML='<div class="empty">'+((sel<MIN||sel>=new Date(2027,0,1))?'年内（2026年9〜12月）の予定を表示しています':'定例なし')+'</div>'; return; }
     list.innerHTML=items.map(function(e){return '<a class="it c'+e.c+'" href="#'+e.to+'"><span class="t">'+e.s+'–'+e.e+'</span><span class="n">'+e.n+(e.p?'<small>'+e.p+'</small>':'')+'</span><span class="go">申請へ ↓</span></a>';}).join('');
     var as=list.querySelectorAll('a'); for(var i=0;i<as.length;i++){(function(a){a.addEventListener('click',function(ev){
