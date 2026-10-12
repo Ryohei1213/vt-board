@@ -23,7 +23,21 @@
 <link rel="icon" type="image/png" href="/assets/favicon.png">
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 <meta name="theme-color" content="#E88A2E">
-<style>html{color-scheme:light dark}img{max-width:100%}</style>
+<style>html{color-scheme:light dark}img{max-width:100%}
+.gal { margin-top: 36px; padding-top: 20px; border-top: 5px solid var(--rule); }
+.gal .ah { display: flex; align-items: baseline; gap: 14px; margin-bottom: 16px; }
+.gal h2 { margin: 0; font-weight: 900; font-size: clamp(22px, 3.4vw, 30px); letter-spacing: .03em; }
+.gal .ah .tag { color: var(--mid); }
+.gal p { margin: 0 0 16px; font-size: 14.5px; line-height: 1.85; color: var(--body); }
+.gal .galbtn { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 20px 22px; background: var(--panel); color: var(--panel-ink); text-decoration: none; }
+.gal .galbtn b { font-weight: 900; font-size: clamp(18px, 2.6vw, 24px); letter-spacing: .03em; }
+.gal .galbtn b em { font-style: normal; color: var(--panel-tag); }
+.gal .galbtn small { font-family: "Barlow", sans-serif; font-weight: 600; font-size: 12px; letter-spacing: .18em; text-transform: uppercase; color: var(--panel-tag); white-space: nowrap; }
+.gal .galbtn .arw { font-family: "Barlow Condensed", sans-serif; font-weight: 800; font-size: 30px; line-height: 1; color: var(--acc); flex: none; }
+.gal .galbtn:hover { background: var(--acc); color: #111318; }
+.gal .galbtn:hover small, .gal .galbtn:hover b em, .gal .galbtn:hover .arw { color: #111318; }
+@media (max-width: 560px) { .gal .galbtn { padding: 16px 16px; } .gal .galbtn small { display: none; } }
+</style>
 </head><body>
 <title>山口香 様 出発ボード</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -389,6 +403,12 @@ html, body { overflow-x: hidden; max-width: 100%; }
       <circle r="11" class="ring2"/>
     </g></g>
   </svg></div>
+  </section>
+
+    <section class="gal">
+    <div class="ah"><h2>研修の写真と動画</h2><span class="tag">Photo Gallery</span></div>
+    <p>今回の研修で撮影した写真と、3日間をまとめたブイログです。写真はタップで保存、ZIPで一括ダウンロードもできます。</p>
+    <a class="galbtn" href="https://verion-gaming.jp/g/8434/"><b>写真を見る <em>Photo Gallery</em></b><small>11 Photos · 1 Video</small><span class="arw">→</span></a>
   </section>
 
   <section class="arr">
