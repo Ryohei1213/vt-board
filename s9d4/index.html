@@ -143,6 +143,17 @@ body { margin: 0; background: var(--bg); color: var(--ink); font-family: "Noto S
 
 .ft { margin-top: 48px; padding-top: 14px; border-top: 1px solid var(--hair); display: flex; justify-content: space-between; font-family: "Barlow", sans-serif; font-weight: 600; font-size: 11px; letter-spacing: .18em; color: var(--mid); text-transform: uppercase; }
 @media (prefers-reduced-motion: no-preference) { .pk input { transition: background .15s, border-color .15s; } }
+
+/* gal-cta */
+.gal-cta{margin:18px 0 6px;padding:22px 22px 24px;border-radius:18px;background:var(--panel);color:var(--panel-ink);position:relative;overflow:hidden}
+.gal-cta:before{content:"";position:absolute;inset:auto -40px -60px auto;width:180px;height:180px;border-radius:50%;background:var(--acc);opacity:.18}
+.gal-cta .tag{display:inline-block;font-family:Barlow,"Hiragino Sans",sans-serif;font-weight:700;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--panel-tag);margin-bottom:8px}
+.gal-cta h2{margin:0 0 6px;font-size:20px;line-height:1.3;letter-spacing:.01em}
+.gal-cta p{margin:0 0 16px;font-size:13.5px;line-height:1.7;color:rgba(255,255,255,.78)}
+.gal-cta .go{display:inline-flex;align-items:center;gap:10px;padding:13px 22px 13px 20px;border-radius:999px;background:var(--acc);color:#111318;font-weight:800;font-size:15px;text-decoration:none;letter-spacing:.02em;box-shadow:0 6px 18px rgba(232,138,46,.35)}
+.gal-cta .go svg{width:18px;height:18px}
+.gal-cta .go:active{transform:translateY(1px)}
+@media (prefers-reduced-motion:no-preference){.gal-cta .go:hover{filter:brightness(1.06)}}
 </style>
 <style>
 /* personal hero */
@@ -404,6 +415,13 @@ html, body { overflow-x: hidden; max-width: 100%; }
     </g></g>
   </svg></div>
   </section>
+  <section class="gal-cta" id="gal-cta">
+    <span class="tag">Photos &amp; Video</span>
+    <h2>研修の写真と動画ができました</h2>
+    <p>3日間の写真とブイログをまとめました。タップで拡大、長押しで保存、ZIPで一括ダウンロードもできます。</p>
+    <a class="go" href="https://verion-gaming.jp/g/8434/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M21 16l-5-5-8 8"/></svg>写真を見る</a>
+  </section>
+
 
     <section class="gal">
     <div class="ah"><h2>研修の写真と動画</h2><span class="tag">Photo Gallery</span></div>
