@@ -247,7 +247,9 @@ p { margin: 0; }
 @media (max-width: 640px) { .world article { grid-template-columns: 1fr; gap: 10px; } }
 
 /* voices: video slider */
-.vslider { margin: 4px 0 20px; }
+.main > *, .sec > * { min-width: 0; }
+.vslider { margin: 4px 0 20px; min-width: 0; max-width: 100%; }
+.vtrack { min-width: 0; width: 100%; }
 .vtrack { display: flex; gap: 12px; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
 .vtrack::-webkit-scrollbar { display: none; }
 .vslide { flex: 0 0 100%; scroll-snap-align: start; margin: 0; }
@@ -260,11 +262,12 @@ p { margin: 0; }
 .vbtn:hover { background: var(--cta); border-color: var(--cta); color: #fff; }
 .vbtn:focus-visible { outline: 2px solid var(--acc); outline-offset: 2px; }
 .vbtn:disabled { opacity: .25; cursor: default; background: var(--bg); border-color: var(--ink); color: var(--ink); }
-.vdots { display: flex; gap: 6px; flex: 1; align-items: center; }
+.vdots { display: flex; flex-wrap: wrap; gap: 6px; flex: 1 1 0; min-width: 0; align-items: center; }
 .vdots button { width: 8px; height: 8px; border-radius: 4px; border: 0; padding: 0; background: var(--hair); cursor: pointer; transition: width .2s, background .2s; }
 .vdots button[aria-selected="true"] { background: var(--cta); width: 24px; }
-.vcount { font-size: 20px; line-height: 1; color: var(--mid); letter-spacing: .04em; }
+.vcount { font-size: 20px; line-height: 1; color: var(--mid); letter-spacing: .04em; white-space: nowrap; flex: 0 0 auto; }
 .vcount b { color: var(--ink); font-weight: inherit; }
+@media (max-width: 640px) { .vnav { gap: 8px; } .vbtn { width: 36px; height: 36px; } .vcount { font-size: 17px; } }
 @media (prefers-reduced-motion: reduce) { .vdots button { transition: none; } }
 
 /* voices */
